@@ -3,11 +3,15 @@ package com.hippo.coresurvey.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SurveyStore extends MongoRepository<SurveyMongoEntity, String> {
 
   @Override
   List<SurveyMongoEntity> findAll();
+
+  @Override
+  Optional<SurveyMongoEntity> findById(String s);
 
   @Override
   <S extends SurveyMongoEntity> S insert(S entity);

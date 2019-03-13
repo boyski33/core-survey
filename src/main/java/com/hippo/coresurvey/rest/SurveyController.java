@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/surveys")
 public class SurveyController {
 
+  private final SurveyService surveyService;
+
   @Autowired
-  SurveyService surveyService;
+  public SurveyController(SurveyService surveyService) {
+    this.surveyService = surveyService;
+  }
 
   @GetMapping()
   public ResponseEntity<List<Survey>> getAllSurveys() {

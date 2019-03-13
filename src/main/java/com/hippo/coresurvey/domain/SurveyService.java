@@ -8,8 +8,12 @@ import java.util.List;
 @Service
 public class SurveyService {
 
+  private final SurveyRepository surveyRepository;
+
   @Autowired
-  SurveyRepository surveyRepository;
+  public SurveyService(SurveyRepository surveyRepository) {
+    this.surveyRepository = surveyRepository;
+  }
 
   public List<Survey> getAllSurveys() {
     return surveyRepository.getAllSurveys();
