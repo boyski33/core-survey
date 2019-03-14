@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 @Repository
 public class SurveyMongoRepository implements SurveyRepository {
 
-  private final SurveyStore repo;
+  private final SurveyMongoStore repo;
 
   @Autowired
-  public SurveyMongoRepository(SurveyStore repo) {
+  public SurveyMongoRepository(SurveyMongoStore repo) {
     this.repo = repo;
   }
 

@@ -1,18 +1,23 @@
 package com.hippo.coresurvey.domain;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Survey {
 
   private String id;
   private String title;
   private String description;
+  private List<Question> questions;
 
   public Survey() {
   }
 
-  public Survey(String id, String title, String description) {
+  public Survey(String id, String title, String description, List<Question> questions) {
     this.id = id;
     this.title = title;
     this.description = description;
+    this.questions = Collections.unmodifiableList(questions);
   }
 
   public String getId() {
@@ -25,6 +30,10 @@ public class Survey {
 
   public String getDescription() {
     return description;
+  }
+
+  public List<Question> getQuestions() {
+    return questions;
   }
 
   @Override
