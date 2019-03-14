@@ -19,7 +19,7 @@ public class SurveyService {
     return surveyRepository.getAllSurveys();
   }
 
-  public Survey createSurvey(Survey survey) {
+  public Survey addSurvey(Survey survey) {
     return surveyRepository.addSurvey(survey);
   }
 

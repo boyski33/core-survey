@@ -29,7 +29,7 @@ public class SurveyController {
 
   @PostMapping()
   public ResponseEntity<Survey> postSurvey(@RequestBody Survey survey) {
-    Survey persistedSurvey = surveyService.createSurvey(survey);
+    Survey persistedSurvey = surveyService.addSurvey(survey);
 
     return ResponseEntity.ok(persistedSurvey);
   }
