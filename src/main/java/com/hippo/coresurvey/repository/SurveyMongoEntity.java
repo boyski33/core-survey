@@ -3,12 +3,14 @@ package com.hippo.coresurvey.repository;
 import com.hippo.coresurvey.domain.Question;
 import com.hippo.coresurvey.domain.Survey;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Collections;
 import java.util.List;
 
 @Document(collection = "surveys")
+@TypeAlias("survey")
 public class SurveyMongoEntity {
 
   @Id
