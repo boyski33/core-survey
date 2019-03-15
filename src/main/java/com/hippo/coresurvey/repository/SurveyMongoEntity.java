@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Document(collection = "surveys")
-@TypeAlias("survey")
+@TypeAlias("SurveyMongoEntity")
 public class SurveyMongoEntity {
 
   @Id
