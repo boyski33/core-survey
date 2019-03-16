@@ -27,8 +27,10 @@ public class SurveyMongoRepository implements SurveyRepository {
   }
 
   @Override
-  public Optional<Survey> getSurveyById() {
-    return Optional.empty();
+  public Optional<Survey> getSurveyById(String id) {
+    Optional<SurveyMongoEntity> survey = repo.findById(id);
+
+    return survey.map(SurveyMongoEntity::toDomainObject);
   }
 
   @Override

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/surveys")
@@ -25,6 +27,18 @@ public class SurveyController {
     List<Survey> surveys = surveyService.getAllSurveys();
 
     return ResponseEntity.ok(surveys);
+  }
+
+  @GetMapping("/{id}")
+  public ResponseEntity<?> getSurveyById(@PathVariable("id") String id) {
+
+    Optional<Survey> survey = surveyService.getSurveyById(id);
+
+    if (survey.isPresent()) {
+      return ResponseEntity.ok(survey.get());
+    }
+
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping()
