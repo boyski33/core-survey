@@ -17,8 +17,8 @@ public class SurveyServiceTest {
     this.surveyService = new SurveyService(new MockSurveyRepository());
   }
 
-  @Test public void
-  given_metadata_flag_true_when_get_surveys_then_return_empty_question_list() {
+  @Test
+  public void given_metadata_flag_true_when_get_surveys_then_return_empty_question_list() {
     //GIVEN
     boolean requestMetadata = true;
 
@@ -29,8 +29,8 @@ public class SurveyServiceTest {
     assertTrue(actual.get(0).getQuestions().isEmpty());
   }
 
-  @Test public void
-  given_metadata_flag_false_when_get_surveys_then_return_with_questions() {
+  @Test
+  public void given_metadata_flag_false_when_get_surveys_then_return_with_questions() {
     //GIVEN
     boolean requestMetadata = false;
 

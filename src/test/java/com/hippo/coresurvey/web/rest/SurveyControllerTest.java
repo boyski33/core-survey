@@ -29,8 +29,8 @@ public class SurveyControllerTest {
     MockitoAnnotations.initMocks(this);
   }
 
-  @Test public void
-  given_invalid_id_when_calling_survey_endpoint_then_return_404() {
+  @Test
+  public void given_invalid_id_when_calling_survey_endpoint_then_return_404() {
     // GIVEN
     when(service.getSurveyById(any())).thenReturn(Optional.empty());
 
@@ -41,8 +41,8 @@ public class SurveyControllerTest {
     assertEquals(HttpStatus.NOT_FOUND, res.getStatusCode());
   }
 
-  @Test public void
-  given_valid_id_when_calling_survey_endpoint_then_return_200() {
+  @Test
+  public void given_valid_id_when_calling_survey_endpoint_then_return_200() {
     // GIVEN
     when(service.getSurveyById(any())).thenReturn(Optional.of(new Survey()));
 
