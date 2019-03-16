@@ -7,6 +7,8 @@ public interface SurveyRepository {
 
   List<Survey> getAllSurveys();
 
+  List<Survey> getAllSurveysMetadata();
+
   Optional<Survey> getSurveyById(String id);
 
   Survey addSurvey(Survey survey);

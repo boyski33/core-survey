@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.rest;
+package com.hippo.coresurvey.web.rest;
 
 import com.hippo.coresurvey.domain.Survey;
 import com.hippo.coresurvey.domain.SurveyService;
@@ -23,8 +23,10 @@ public class SurveyController {
   }
 
   @GetMapping()
-  public ResponseEntity<List<Survey>> getAllSurveys() {
-    List<Survey> surveys = surveyService.getAllSurveys();
+  public ResponseEntity<List<Survey>> getAllSurveys(
+      @RequestParam(value = "meta", required = false) boolean displayOnlyMeta) {
+
+    List<Survey> surveys = surveyService.getAllSurveys(displayOnlyMeta);
 
     return ResponseEntity.ok(surveys);
   }

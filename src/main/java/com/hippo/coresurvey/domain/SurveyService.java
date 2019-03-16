@@ -16,7 +16,11 @@ public class SurveyService {
     this.surveyRepository = surveyRepository;
   }
 
-  public List<Survey> getAllSurveys() {
+  public List<Survey> getAllSurveys(boolean displayOnlyMeta) {
+    if (displayOnlyMeta) {
+      return surveyRepository.getAllSurveysMetadata();
+    }
+
     return surveyRepository.getAllSurveys();
   }
 

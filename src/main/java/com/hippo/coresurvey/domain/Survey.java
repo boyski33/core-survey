@@ -1,6 +1,7 @@
 package com.hippo.coresurvey.domain;
 
-import java.util.Collections;
+import com.hippo.coresurvey.domain.util.CollectionsUtil;
+
 import java.util.List;
 
 public class Survey {
@@ -17,7 +18,7 @@ public class Survey {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.questions = Collections.unmodifiableList(questions);
+    this.questions = CollectionsUtil.ofNullableList(questions);
   }
 
   public String getId() {

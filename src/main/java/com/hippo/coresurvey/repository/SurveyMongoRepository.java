@@ -27,6 +27,13 @@ public class SurveyMongoRepository implements SurveyRepository {
   }
 
   @Override
+  public List<Survey> getAllSurveysMetadata() {
+    return repo.findAllAndExcludeQuestions().stream()
+        .map(SurveyMongoEntity::toDomainObject)
+        .collect(Collectors.toList());
+  }
+
+  @Override
   public Optional<Survey> getSurveyById(String id) {
     Optional<SurveyMongoEntity> survey = repo.findById(id);
 
