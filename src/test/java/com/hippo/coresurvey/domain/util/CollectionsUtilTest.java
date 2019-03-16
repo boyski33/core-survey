@@ -3,24 +3,14 @@ package com.hippo.coresurvey.domain.util;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class CollectionsUtilTest {
 
-//  public static <T> List<T> ofNullableList(List<? extends T> list) {
-//    if (list == null) {
-//      return Collections.emptyList();
-//    }
-//
-//    return Collections.unmodifiableList(list);
-//  }
-
-
-  @Test public void
-  given_null_when_ofNullableList_then_return_empty_list() {
+  @Test
+  public void given_null_when_ofNullableList_then_return_empty_list() {
     // GIVEN
     List<Integer> list = null;
 
@@ -32,8 +22,8 @@ public class CollectionsUtilTest {
     assertTrue(result.isEmpty());
   }
 
-  @Test public void
-  given_actual_list_when_ofNullableList_then_return_list_copy() {
+  @Test
+  public void given_actual_list_when_ofNullableList_then_return_list_copy() {
     // GIVEN
     int a = 10;
     List<Integer> list = new ArrayList<>();
