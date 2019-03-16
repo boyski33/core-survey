@@ -2,11 +2,11 @@ package com.hippo.coresurvey.repository;
 
 import com.hippo.coresurvey.domain.Question;
 import com.hippo.coresurvey.domain.Survey;
+import com.hippo.coresurvey.domain.util.CollectionsUtil;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Collections;
 import java.util.List;
 
 @Document(collection = "surveys")
@@ -27,7 +27,7 @@ public class SurveyMongoEntity {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.questions = Collections.unmodifiableList(questions);
+    this.questions = CollectionsUtil.ofNullableList(questions);
   }
 
   public Survey toDomainObject() {
@@ -39,8 +39,7 @@ public class SurveyMongoEntity {
         survey.getId(),
         survey.getTitle(),
         survey.getDescription(),
-        survey.getQuestions()
-    );
+        survey.getQuestions());
   }
 
   public String getId() {
