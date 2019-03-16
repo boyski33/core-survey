@@ -7,7 +7,7 @@ public interface SurveyRepository {
 
   List<Survey> getAllSurveys();
 
-  Optional<Survey> getSurveyById();
+  Optional<Survey> getSurveyById(String id);
 
   Survey addSurvey(Survey survey);
 }

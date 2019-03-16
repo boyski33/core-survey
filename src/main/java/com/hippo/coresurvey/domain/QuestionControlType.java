@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: we can argue that this exposes rest logic and should be extracted in the rest layer
 public enum QuestionControlType {
   TEXTBOX,
   DROPDOWN,
