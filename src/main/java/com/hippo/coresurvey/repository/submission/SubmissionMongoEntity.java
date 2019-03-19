@@ -1,6 +1,7 @@
 package com.hippo.coresurvey.repository.submission;
 
 import com.hippo.coresurvey.domain.question.AnsweredQuestion;
+import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.domain.survey.Survey;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
@@ -20,6 +21,10 @@ public class SubmissionMongoEntity {
   private List<AnsweredQuestion> answeredQuestions;
 
   public SubmissionMongoEntity() {
+  }
+
+  public Submission toDomainObject() {
+    return new Submission(); // TODO: Builder pattern?
   }
 
   public String getId() {

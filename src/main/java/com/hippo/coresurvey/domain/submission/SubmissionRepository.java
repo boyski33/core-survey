@@ -1,12 +1,13 @@
 package com.hippo.coresurvey.domain.submission;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubmissionRepository {
 
   List<Submission> getAllSubmissions();
 
-  Submission getSubmissionById(String id);
+  Optional<Submission> getSubmissionById(String id);
 
-  List<Submission> getSubmissionsForSurveyId(String surveyId);
+  List<Submission> getSubmissionsForSurvey(String surveyId);
 }
