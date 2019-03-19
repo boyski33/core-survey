@@ -1,5 +1,7 @@
 package com.hippo.coresurvey.domain;
 
+import com.hippo.coresurvey.domain.survey.Survey;
+import com.hippo.coresurvey.domain.survey.SurveyService;
 import org.junit.Before;
 import org.junit.Test;
 

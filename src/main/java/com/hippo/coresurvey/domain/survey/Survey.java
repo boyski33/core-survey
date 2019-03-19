@@ -1,5 +1,6 @@
-package com.hippo.coresurvey.domain;
+package com.hippo.coresurvey.domain.survey;
 
+import com.hippo.coresurvey.domain.question.Question;
 import com.hippo.coresurvey.domain.util.CollectionsUtil;
 
 import java.util.List;

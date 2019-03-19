@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.domain;
+package com.hippo.coresurvey.domain.question;
 
 public class QuestionOption {
 

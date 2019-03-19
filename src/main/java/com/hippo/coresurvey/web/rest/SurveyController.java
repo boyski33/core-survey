@@ -1,7 +1,7 @@
 package com.hippo.coresurvey.web.rest;
 
-import com.hippo.coresurvey.domain.Survey;
-import com.hippo.coresurvey.domain.SurveyService;
+import com.hippo.coresurvey.domain.survey.Survey;
+import com.hippo.coresurvey.domain.survey.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.domain;
+package com.hippo.coresurvey.domain.survey;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

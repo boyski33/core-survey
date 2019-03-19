@@ -1,7 +1,7 @@
-package com.hippo.coresurvey.repository;
+package com.hippo.coresurvey.repository.survey;
 
-import com.hippo.coresurvey.domain.Survey;
-import com.hippo.coresurvey.domain.SurveyRepository;
+import com.hippo.coresurvey.domain.survey.Survey;
+import com.hippo.coresurvey.domain.survey.SurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

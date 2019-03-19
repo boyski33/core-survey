@@ -7,6 +7,10 @@ import java.util.Optional;
 
 import static java.util.Arrays.asList;
 
+import com.hippo.coresurvey.domain.question.Question;
+import com.hippo.coresurvey.domain.survey.Survey;
+import com.hippo.coresurvey.domain.survey.SurveyRepository;
+
 class MockSurveyRepository implements SurveyRepository {
 
   @Override

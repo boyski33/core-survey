@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.repository;
+package com.hippo.coresurvey.repository.survey;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

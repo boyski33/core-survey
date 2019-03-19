@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.domain;
+package com.hippo.coresurvey.domain.survey;
 
 import java.util.List;
 import java.util.Optional;
