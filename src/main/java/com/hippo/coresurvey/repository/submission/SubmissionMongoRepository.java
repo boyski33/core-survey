@@ -35,7 +35,9 @@ public class SubmissionMongoRepository implements SubmissionRepository {
 
   @Override
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
-    return Collections.emptyList();
+    return submissionStore.findBySurveyId(surveyId).stream()
+        .map(SubmissionMongoEntity::toDomainObject)
+        .collect(Collectors.toList());
   }
 
   @Override

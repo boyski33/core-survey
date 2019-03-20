@@ -15,4 +15,6 @@ public interface SubmissionMongoStore extends MongoRepository<SubmissionMongoEnt
 
   @Override
   <S extends SubmissionMongoEntity> S insert(S entity);
+
+  List<SubmissionMongoEntity> findBySurveyId(String surveyId);
 }

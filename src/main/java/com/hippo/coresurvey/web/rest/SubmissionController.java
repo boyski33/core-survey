@@ -29,7 +29,7 @@ public class SubmissionController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getSubmissionById(String id) {
+  public ResponseEntity<?> getSubmissionById(@PathVariable("id") String id) {
     Optional<Submission> submission = submissionService.getSubmissionById(id);
 
     if (submission.isPresent()) {
@@ -38,6 +38,14 @@ public class SubmissionController {
 
     return ResponseEntity.notFound().build();
   }
+
+  @GetMapping("/survey/{surveyId}")
+  public ResponseEntity<?> getSubmissionsForSurvey(@PathVariable("surveyId") String surveyId) {
+    List<Submission> submissions = submissionService.getSubmissionsForSurvey(surveyId);
+
+    return ResponseEntity.ok(submissions);
+  }
+
 
   @PostMapping()
   public ResponseEntity<?> postSubmission(@RequestBody Submission submission) {
