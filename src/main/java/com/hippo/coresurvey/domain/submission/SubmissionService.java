@@ -27,4 +27,8 @@ public class SubmissionService {
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
     return submissionRepository.getSubmissionsForSurvey(surveyId);
   }
+
+  public Submission addSubmission(Submission submission) {
+    return submissionRepository.addSubmission(submission);
+  }
 }

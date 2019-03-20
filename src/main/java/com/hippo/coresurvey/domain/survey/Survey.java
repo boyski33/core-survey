@@ -5,6 +5,8 @@ import com.hippo.coresurvey.domain.util.CollectionsUtil;
 
 import java.util.List;
 
+import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
+
 public class Survey {
 
   private String id;
@@ -19,7 +21,11 @@ public class Survey {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.questions = CollectionsUtil.ofNullableList(questions);
+    this.questions = ofNullableList(questions);
+  }
+
+  public Survey(Survey survey) {
+    this(survey.id, survey.title, survey.description, survey.questions);
   }
 
   public String getId() {

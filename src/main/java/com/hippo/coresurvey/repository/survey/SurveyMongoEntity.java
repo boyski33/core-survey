@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
+
 @Document(collection = "surveys")
 @TypeAlias("SurveyMongoEntity")
 public class SurveyMongoEntity {
@@ -27,7 +29,7 @@ public class SurveyMongoEntity {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.questions = CollectionsUtil.ofNullableList(questions);
+    this.questions = ofNullableList(questions);
   }
 
   public Survey toDomainObject() {

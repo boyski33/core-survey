@@ -10,4 +10,6 @@ public interface SubmissionRepository {
   Optional<Submission> getSubmissionById(String id);
 
   List<Submission> getSubmissionsForSurvey(String surveyId);
+
+  Submission addSubmission(Submission submission);
 }

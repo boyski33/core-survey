@@ -10,6 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
 import java.util.List;
 
+import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
+import static com.hippo.coresurvey.domain.util.DateTimeUtil.nowIfNull;
+
 @Document(collection = "submissions")
 @TypeAlias("SubmissionMongoEntity")
 public class SubmissionMongoEntity {
@@ -23,8 +26,24 @@ public class SubmissionMongoEntity {
   public SubmissionMongoEntity() {
   }
 
+  public SubmissionMongoEntity(String id, Instant timestamp, Survey survey, List<AnsweredQuestion> answeredQuestions) {
+    this.id = id;
+    this.timestamp = nowIfNull(timestamp);
+    this.survey = new Survey(survey);
+    this.answeredQuestions = ofNullableList(answeredQuestions);
+  }
+
   public Submission toDomainObject() {
-    return new Submission(); // TODO: Builder pattern?
+    return new Submission(id, timestamp, survey, answeredQuestions);
+  }
+
+  public static SubmissionMongoEntity fromDomainObject(Submission submission) {
+    return new SubmissionMongoEntity(
+        submission.getId(),
+        submission.getTimestamp(),
+        submission.getSurvey(),
+        submission.getAnsweredQuestions()
+    );
   }
 
   public String getId() {

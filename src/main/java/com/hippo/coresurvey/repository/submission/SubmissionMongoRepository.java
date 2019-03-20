@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class SubmissionMongoRepository implements SubmissionRepository {
@@ -21,16 +22,26 @@ public class SubmissionMongoRepository implements SubmissionRepository {
 
   @Override
   public List<Submission> getAllSubmissions() {
-    return null;
+    return submissionStore.findAll().stream()
+        .map(SubmissionMongoEntity::toDomainObject)
+        .collect(Collectors.toList());
   }
 
   @Override
   public Optional<Submission> getSubmissionById(String id) {
-    return submissionStore.findById(id);
+    return submissionStore.findById(id)
+        .map(SubmissionMongoEntity::toDomainObject);
   }
 
   @Override
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
     return Collections.emptyList();
+  }
+
+  @Override
+  public Submission addSubmission(Submission submission) {
+    SubmissionMongoEntity entity = SubmissionMongoEntity.fromDomainObject(submission);
+
+    return submissionStore.insert(entity).toDomainObject();
   }
 }

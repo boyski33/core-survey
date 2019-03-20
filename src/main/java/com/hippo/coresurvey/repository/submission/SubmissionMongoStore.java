@@ -12,4 +12,7 @@ public interface SubmissionMongoStore extends MongoRepository<SubmissionMongoEnt
 
   @Override
   Optional<SubmissionMongoEntity> findById(String id);
+
+  @Override
+  <S extends SubmissionMongoEntity> S insert(S entity);
 }
