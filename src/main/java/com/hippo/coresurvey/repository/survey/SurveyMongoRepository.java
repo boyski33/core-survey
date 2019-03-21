@@ -1,7 +1,7 @@
-package com.hippo.coresurvey.repository;
+package com.hippo.coresurvey.repository.survey;
 
-import com.hippo.coresurvey.domain.Survey;
-import com.hippo.coresurvey.domain.SurveyRepository;
+import com.hippo.coresurvey.domain.survey.Survey;
+import com.hippo.coresurvey.domain.survey.SurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,38 +12,37 @@ import java.util.stream.Collectors;
 @Repository
 public class SurveyMongoRepository implements SurveyRepository {
 
-  private final SurveyMongoStore repo;
+  private final SurveyMongoStore surveyStore;
 
   @Autowired
-  public SurveyMongoRepository(SurveyMongoStore repo) {
-    this.repo = repo;
+  public SurveyMongoRepository(SurveyMongoStore surveyStore) {
+    this.surveyStore = surveyStore;
   }
 
   @Override
   public List<Survey> getAllSurveys() {
-    return repo.findAll().stream()
+    return surveyStore.findAll().stream()
         .map(SurveyMongoEntity::toDomainObject)
         .collect(Collectors.toList());
   }
 
   @Override
   public List<Survey> getAllSurveysMetadata() {
-    return repo.findAllAndExcludeQuestions().stream()
+    return surveyStore.findAllAndExcludeQuestions().stream()
         .map(SurveyMongoEntity::toDomainObject)
         .collect(Collectors.toList());
   }
 
   @Override
   public Optional<Survey> getSurveyById(String id) {
-    Optional<SurveyMongoEntity> survey = repo.findById(id);
-
-    return survey.map(SurveyMongoEntity::toDomainObject);
+    return surveyStore.findById(id)
+        .map(SurveyMongoEntity::toDomainObject);
   }
 
   @Override
   public Survey addSurvey(Survey survey) {
     SurveyMongoEntity entity = SurveyMongoEntity.fromDomainObject(survey);
 
-    return repo.insert(entity).toDomainObject();
+    return surveyStore.insert(entity).toDomainObject();
   }
 }

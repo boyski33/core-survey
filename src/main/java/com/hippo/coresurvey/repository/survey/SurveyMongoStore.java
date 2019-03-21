@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.repository;
+package com.hippo.coresurvey.repository.survey;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -15,7 +15,7 @@ public interface SurveyMongoStore extends MongoRepository<SurveyMongoEntity, Str
   List<SurveyMongoEntity> findAllAndExcludeQuestions();
 
   @Override
-  Optional<SurveyMongoEntity> findById(String s);
+  Optional<SurveyMongoEntity> findById(String id);
 
   @Override
   <S extends SurveyMongoEntity> S insert(S entity);

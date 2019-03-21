@@ -1,13 +1,14 @@
-package com.hippo.coresurvey.repository;
+package com.hippo.coresurvey.repository.survey;
 
-import com.hippo.coresurvey.domain.Question;
-import com.hippo.coresurvey.domain.Survey;
-import com.hippo.coresurvey.domain.util.CollectionsUtil;
+import com.hippo.coresurvey.domain.question.Question;
+import com.hippo.coresurvey.domain.survey.Survey;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+
+import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
 
 @Document(collection = "surveys")
 @TypeAlias("SurveyMongoEntity")
@@ -27,7 +28,7 @@ public class SurveyMongoEntity {
     this.id = id;
     this.title = title;
     this.description = description;
-    this.questions = CollectionsUtil.ofNullableList(questions);
+    this.questions = ofNullableList(questions);
   }
 
   public Survey toDomainObject() {
