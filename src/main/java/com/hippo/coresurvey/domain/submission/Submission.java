@@ -1,7 +1,7 @@
 package com.hippo.coresurvey.domain.submission;
 
-import com.hippo.coresurvey.domain.survey.Survey;
 import com.hippo.coresurvey.domain.question.AnsweredQuestion;
+import com.hippo.coresurvey.domain.survey.Survey;
 
 import java.time.Instant;
 import java.util.List;

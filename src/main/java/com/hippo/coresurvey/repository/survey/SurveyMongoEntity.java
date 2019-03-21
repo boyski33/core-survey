@@ -2,7 +2,6 @@ package com.hippo.coresurvey.repository.survey;
 
 import com.hippo.coresurvey.domain.question.Question;
 import com.hippo.coresurvey.domain.survey.Survey;
-import com.hippo.coresurvey.domain.util.CollectionsUtil;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
