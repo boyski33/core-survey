@@ -2,7 +2,6 @@ package com.hippo.coresurvey.web.rest;
 
 import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.domain.submission.SubmissionService;
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +44,6 @@ public class SubmissionController {
 
     return ResponseEntity.ok(submissions);
   }
-
 
   @PostMapping()
   public ResponseEntity<?> postSubmission(@RequestBody Submission submission) {

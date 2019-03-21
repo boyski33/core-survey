@@ -14,20 +14,20 @@ public class Submission {
   private String id;
   private Instant timestamp;
   private Survey survey;
-  private List<AnsweredQuestion> answeredQuestions;
+  private List<AnsweredQuestion> answers;
 
   public Submission() {
   }
 
-  public Submission(String id, Instant timestamp, Survey survey, List<AnsweredQuestion> answeredQuestions) {
+  public Submission(String id, Instant timestamp, Survey survey, List<AnsweredQuestion> answers) {
     this.id = id;
     this.timestamp = nowIfNull(timestamp);
     this.survey = new Survey(survey);
-    this.answeredQuestions = ofNullableList(answeredQuestions);
+    this.answers = ofNullableList(answers);
   }
 
   public Submission(Submission submission) {
-    this(submission.id, submission.timestamp, submission.survey, submission.answeredQuestions);
+    this(submission.id, submission.timestamp, submission.survey, submission.answers);
   }
 
   public String getId() {
@@ -42,7 +42,7 @@ public class Submission {
     return survey;
   }
 
-  public List<AnsweredQuestion> getAnsweredQuestions() {
-    return answeredQuestions;
+  public List<AnsweredQuestion> getAnswers() {
+    return answers;
   }
 }

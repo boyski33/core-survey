@@ -21,20 +21,20 @@ public class SubmissionMongoEntity {
   private String id;
   private Instant timestamp;
   private Survey survey;
-  private List<AnsweredQuestion> answeredQuestions;
+  private List<AnsweredQuestion> answers;
 
   public SubmissionMongoEntity() {
   }
 
-  public SubmissionMongoEntity(String id, Instant timestamp, Survey survey, List<AnsweredQuestion> answeredQuestions) {
+  public SubmissionMongoEntity(String id, Instant timestamp, Survey survey, List<AnsweredQuestion> answers) {
     this.id = id;
     this.timestamp = nowIfNull(timestamp);
     this.survey = new Survey(survey);
-    this.answeredQuestions = ofNullableList(answeredQuestions);
+    this.answers = ofNullableList(answers);
   }
 
   public Submission toDomainObject() {
-    return new Submission(id, timestamp, survey, answeredQuestions);
+    return new Submission(id, timestamp, survey, answers);
   }
 
   public static SubmissionMongoEntity fromDomainObject(Submission submission) {
@@ -42,7 +42,7 @@ public class SubmissionMongoEntity {
         submission.getId(),
         submission.getTimestamp(),
         submission.getSurvey(),
-        submission.getAnsweredQuestions()
+        submission.getAnswers()
     );
   }
 
@@ -58,8 +58,8 @@ public class SubmissionMongoEntity {
     return survey;
   }
 
-  public List<AnsweredQuestion> getAnsweredQuestions() {
-    return answeredQuestions;
+  public List<AnsweredQuestion> getAnswers() {
+    return answers;
   }
 
 }
