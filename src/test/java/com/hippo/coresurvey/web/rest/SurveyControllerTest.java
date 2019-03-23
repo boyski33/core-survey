@@ -2,6 +2,7 @@ package com.hippo.coresurvey.web.rest;
 
 import com.hippo.coresurvey.domain.survey.Survey;
 import com.hippo.coresurvey.domain.survey.SurveyService;
+import com.hippo.coresurvey.web.rest.controller.SurveyController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

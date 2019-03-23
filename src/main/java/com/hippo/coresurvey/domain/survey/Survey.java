@@ -2,29 +2,34 @@ package com.hippo.coresurvey.domain.survey;
 
 import com.hippo.coresurvey.domain.question.Question;
 
+import java.time.Instant;
 import java.util.List;
 
 import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
+import static com.hippo.coresurvey.domain.util.DateTimeUtil.nowIfNull;
 
 public class Survey {
 
   private String id;
   private String title;
   private String description;
+  private Instant timestamp;
+
   private List<Question> questions;
 
   public Survey() {
   }
 
-  public Survey(String id, String title, String description, List<Question> questions) {
+  public Survey(String id, String title, String description, Instant timestamp, List<Question> questions) {
     this.id = id;
     this.title = title;
     this.description = description;
+    this.timestamp = nowIfNull(timestamp);
     this.questions = ofNullableList(questions);
   }
 
   public Survey(Survey survey) {
-    this(survey.id, survey.title, survey.description, survey.questions);
+    this(survey.id, survey.title, survey.description, survey.timestamp, survey.questions);
   }
 
   public String getId() {
@@ -37,6 +42,10 @@ public class Survey {
 
   public String getDescription() {
     return description;
+  }
+
+  public Instant getTimestamp() {
+    return timestamp;
   }
 
   public List<Question> getQuestions() {
