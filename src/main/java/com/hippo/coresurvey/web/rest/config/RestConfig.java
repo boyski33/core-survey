@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.web.rest;
+package com.hippo.coresurvey.web.rest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

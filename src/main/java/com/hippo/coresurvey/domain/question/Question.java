@@ -7,7 +7,6 @@ public class Question {
   private String key;
   private String label;
   private int order;
-  private String placeholder;
   private QuestionControlType controlType;
   private List<QuestionOption> options;
 
@@ -24,10 +23,6 @@ public class Question {
 
   public int getOrder() {
     return order;
-  }
-
-  public String getPlaceholder() {
-    return placeholder;
   }
 
   public QuestionControlType getControlType() {
