@@ -2,6 +2,8 @@ package com.hippo.coresurvey.domain.question;
 
 import java.util.List;
 
+import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
+
 public class Question {
 
   private String key;
@@ -11,6 +13,14 @@ public class Question {
   private List<QuestionOption> options;
 
   public Question() {
+  }
+
+  public Question(String key, String label, int order, QuestionControlType controlType, List<QuestionOption> options) {
+    this.key = key;
+    this.label = label;
+    this.order = order;
+    this.controlType = controlType;
+    this.options = ofNullableList(options);
   }
 
   public String getKey() {
