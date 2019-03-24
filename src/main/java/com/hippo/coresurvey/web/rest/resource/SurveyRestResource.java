@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 import java.util.List;
 
-public class SurveyResource {
+public class SurveyRestResource {
 
   public String id;
 
@@ -22,15 +22,15 @@ public class SurveyResource {
   @NotEmpty
   public List<Question> questions;
 
-  public SurveyResource() {
+  public SurveyRestResource() {
   }
 
-  public SurveyResource(
+  public SurveyRestResource(
       String id,
-      String title,
+      @NotBlank String title,
       String description,
       Instant timestamp,
-      List<Question> questions) {
+      @NotEmpty List<Question> questions) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -42,8 +42,8 @@ public class SurveyResource {
     return new Survey(id, title, description, timestamp, questions);
   }
 
-  public static SurveyResource fromDomainObject(Survey survey) {
-    return new SurveyResource(
+  public static SurveyRestResource fromDomainObject(Survey survey) {
+    return new SurveyRestResource(
         survey.getId(),
         survey.getTitle(),
         survey.getDescription(),

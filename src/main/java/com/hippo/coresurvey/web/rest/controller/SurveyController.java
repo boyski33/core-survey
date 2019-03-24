@@ -2,7 +2,7 @@ package com.hippo.coresurvey.web.rest.controller;
 
 import com.hippo.coresurvey.domain.survey.Survey;
 import com.hippo.coresurvey.domain.survey.SurveyService;
-import com.hippo.coresurvey.web.rest.resource.SurveyResource;
+import com.hippo.coresurvey.web.rest.resource.SurveyRestResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,24 +24,24 @@ public class SurveyController {
   }
 
   @GetMapping()
-  public ResponseEntity<List<SurveyResource>> getAllSurveys(
+  public ResponseEntity<List<SurveyRestResource>> getAllSurveys(
       @RequestParam(value = "meta", required = false) boolean displayOnlyMeta) {
 
-    List<SurveyResource> surveys =
+    List<SurveyRestResource> surveys =
         surveyService.getAllSurveys(displayOnlyMeta).stream()
-        .map(SurveyResource::fromDomainObject)
+        .map(SurveyRestResource::fromDomainObject)
         .collect(Collectors.toList());
 
     return ResponseEntity.ok(surveys);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<SurveyResource> getSurveyById(@PathVariable("id") String id) {
+  public ResponseEntity<SurveyRestResource> getSurveyById(@PathVariable("id") String id) {
 
     Optional<Survey> survey = surveyService.getSurveyById(id);
 
     if (survey.isPresent()) {
-      SurveyResource response = SurveyResource.fromDomainObject(survey.get());
+      SurveyRestResource response = SurveyRestResource.fromDomainObject(survey.get());
 
       return ResponseEntity.ok(response);
     }
@@ -50,9 +50,10 @@ public class SurveyController {
   }
 
   @PostMapping()
-  public ResponseEntity<SurveyResource> postSurvey(@Valid @RequestBody SurveyResource survey) {
+  public ResponseEntity<SurveyRestResource> postSurvey(@RequestBody @Valid SurveyRestResource survey) {
+
     Survey persistedSurvey = surveyService.addSurvey(survey.toDomainObject());
-    SurveyResource response = SurveyResource.fromDomainObject(persistedSurvey);
+    SurveyRestResource response = SurveyRestResource.fromDomainObject(persistedSurvey);
 
     return ResponseEntity.ok(response);
   }
