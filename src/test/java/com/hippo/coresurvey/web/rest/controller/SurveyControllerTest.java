@@ -1,4 +1,4 @@
-package com.hippo.coresurvey.web.rest;
+package com.hippo.coresurvey.web.rest.controller;
 
 import com.hippo.coresurvey.domain.survey.Survey;
 import com.hippo.coresurvey.domain.survey.SurveyService;
