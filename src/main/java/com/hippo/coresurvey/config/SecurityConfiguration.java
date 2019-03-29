@@ -23,7 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     JwtWebSecurityConfigurer.forRS256(apiAudience, issuer)
         .configure(http)
         .authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/submissions/**").hasAnyAuthority("view:submissions");
+        .antMatchers(HttpMethod.GET, "/submissions/**").hasAnyAuthority("view:submissions")
+        .antMatchers(HttpMethod.GET, "/users/**").authenticated()
+        .antMatchers(HttpMethod.POST, "/users/**").authenticated();
   }
 
 }
