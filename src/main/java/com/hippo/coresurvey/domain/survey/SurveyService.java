@@ -28,6 +28,10 @@ public class SurveyService {
     return surveyRepository.getSurveyById(id);
   }
 
+  public List<Survey> getSurveysForOwner(String ownerEmail) {
+    return surveyRepository.getSurveysForOwner(ownerEmail);
+  }
+
   public Survey addSurvey(Survey survey) {
     return surveyRepository.addSurvey(survey);
   }

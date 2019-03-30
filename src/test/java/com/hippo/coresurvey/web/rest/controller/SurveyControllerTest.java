@@ -47,7 +47,7 @@ public class SurveyControllerTest {
   @Test
   public void given_valid_id_when_calling_survey_endpoint_then_return_200() {
     // GIVEN
-    Survey survey = new Survey("id", "title", null, Instant.now(), singletonList(new Question()));
+    Survey survey = new Survey("id", "email", "title", null, Instant.now(), singletonList(new Question()));
     when(service.getSurveyById(any())).thenReturn(Optional.of(survey));
 
     // WHEN

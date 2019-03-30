@@ -25,7 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(HttpMethod.GET, "/submissions/**").hasAnyAuthority("view:submissions")
         .antMatchers(HttpMethod.GET, "/users/**").authenticated()
-        .antMatchers(HttpMethod.POST, "/users/**").authenticated()
+        .antMatchers(HttpMethod.POST, "/surveys/**", "/users/**").authenticated()
         .antMatchers(HttpMethod.PUT, "/users/**").authenticated();
   }
 

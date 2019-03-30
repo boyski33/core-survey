@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
+
 @RestController
 @RequestMapping("/surveys")
 public class SurveyController {
@@ -29,8 +31,8 @@ public class SurveyController {
 
     List<SurveyRestResource> surveys =
         surveyService.getAllSurveys(displayOnlyMeta).stream()
-        .map(SurveyRestResource::fromDomainObject)
-        .collect(Collectors.toList());
+            .map(SurveyRestResource::fromDomainObject)
+            .collect(toList());
 
     return ResponseEntity.ok(surveys);
   }
@@ -47,6 +49,23 @@ public class SurveyController {
     }
 
     return ResponseEntity.notFound().build();
+  }
+
+  /**
+   * Get survey metadata (without question list) for the given email.
+   *
+   * @param ownerEmail the email of the surveys owner
+   * @return list of Surveys
+   */
+  @GetMapping("/user/{email}")
+  public ResponseEntity<List<SurveyRestResource>> getSurveysForOwner(@PathVariable("email") String ownerEmail) {
+
+    List<SurveyRestResource> surveys =
+        surveyService.getSurveysForOwner(ownerEmail).stream()
+        .map(SurveyRestResource::fromDomainObject)
+        .collect(toList());
+
+    return ResponseEntity.ok(surveys);
   }
 
   @PostMapping()

@@ -4,6 +4,7 @@ import com.hippo.coresurvey.domain.question.Question;
 import com.hippo.coresurvey.domain.survey.Survey;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
@@ -13,6 +14,10 @@ import java.util.stream.Collectors;
 public class SurveyRestResource {
 
   public String id;
+
+  @NotBlank
+  @Email
+  public String ownerEmail;
 
   @NotBlank
   public String title;
@@ -30,11 +35,13 @@ public class SurveyRestResource {
 
   public SurveyRestResource(
       String id,
+      @Email String ownerEmail,
       @NotBlank String title,
       String description,
       Instant timestamp,
       @NotEmpty @Valid List<QuestionRestResource> questions) {
     this.id = id;
+    this.ownerEmail = ownerEmail;
     this.title = title;
     this.description = description;
     this.timestamp = timestamp;
@@ -45,7 +52,7 @@ public class SurveyRestResource {
     List<Question> questionList =
         questions.stream().map(QuestionRestResource::toDomainObject).collect(Collectors.toList());
 
-    return new Survey(id, title, description, timestamp, questionList);
+    return new Survey(id, ownerEmail, title, description, timestamp, questionList);
   }
 
   public static SurveyRestResource fromDomainObject(Survey survey) {
@@ -54,6 +61,7 @@ public class SurveyRestResource {
 
     return new SurveyRestResource(
         survey.getId(),
+        survey.getOwnerEmail(),
         survey.getTitle(),
         survey.getDescription(),
         survey.getTimestamp(),

@@ -40,6 +40,13 @@ public class SurveyMongoRepository implements SurveyRepository {
   }
 
   @Override
+  public List<Survey> getSurveysForOwner(String ownerEmail) {
+    return surveyStore.findByOwnerEmail(ownerEmail).stream()
+        .map(SurveyMongoEntity::toDomainObject)
+        .collect(Collectors.toList());
+  }
+
+  @Override
   public Survey addSurvey(Survey survey) {
     SurveyMongoEntity entity = SurveyMongoEntity.fromDomainObject(survey);
 

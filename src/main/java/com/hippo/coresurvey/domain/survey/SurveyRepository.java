@@ -11,5 +11,7 @@ public interface SurveyRepository {
 
   Optional<Survey> getSurveyById(String id);
 
+  List<Survey> getSurveysForOwner(String ownerEmail);
+
   Survey addSurvey(Survey survey);
 }
