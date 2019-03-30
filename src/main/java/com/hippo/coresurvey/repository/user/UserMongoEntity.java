@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Document(collection = "users")
@@ -26,7 +25,7 @@ public class UserMongoEntity {
   private String lastName;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  private LocalDate dateOfBirth;
+  private Date dateOfBirth;
 
   private Gender gender;
 
@@ -38,7 +37,7 @@ public class UserMongoEntity {
       String email,
       String firstName,
       String lastName,
-      LocalDate dateOfBirth,
+      Date dateOfBirth,
       Gender gender) {
     this.id = id;
     this.email = email;
