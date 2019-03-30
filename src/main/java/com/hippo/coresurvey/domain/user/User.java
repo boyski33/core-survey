@@ -1,6 +1,7 @@
 package com.hippo.coresurvey.domain.user;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class User {
 
@@ -8,13 +9,13 @@ public class User {
   private String email;
   private String firstName;
   private String lastName;
-  private Instant dateOfBirth;
+  private LocalDate dateOfBirth;
   private Gender gender;
 
   public User() {
   }
 
-  public User(String id, String email, String firstName, String lastName, Instant dateOfBirth, Gender gender) {
+  public User(String id, String email, String firstName, String lastName, LocalDate dateOfBirth, Gender gender) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
@@ -43,7 +44,7 @@ public class User {
     return lastName;
   }
 
-  public Instant getDateOfBirth() {
+  public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 

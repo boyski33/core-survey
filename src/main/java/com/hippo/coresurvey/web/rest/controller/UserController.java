@@ -30,7 +30,7 @@ public class UserController {
       return ResponseEntity.ok(user.get());
     }
 
-    return ResponseEntity.notFound().build();
+    return ResponseEntity.ok(new User());
   }
 
   @PutMapping()

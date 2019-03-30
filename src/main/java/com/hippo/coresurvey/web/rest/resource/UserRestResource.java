@@ -7,7 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class UserRestResource {
 
@@ -22,8 +23,8 @@ public class UserRestResource {
   public String lastName;
 
   @NotNull
-  @DateTimeFormat()
-  public Instant dateOfBirth;
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+  public LocalDate dateOfBirth;
 
   @NotNull
   public Gender gender;
@@ -36,7 +37,7 @@ public class UserRestResource {
       @Email String email,
       String firstName,
       String lastName,
-      @NotNull Instant dateOfBirth,
+      @NotNull LocalDate dateOfBirth,
       @NotNull Gender gender) {
     this.id = id;
     this.email = email;
