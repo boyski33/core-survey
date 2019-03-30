@@ -18,7 +18,7 @@ public class UserService {
     return userRepository.getUserByEmail(email);
   }
 
-  public User addUser(User user) {
-    return userRepository.addUser(user);
+  public User updateUser(User user) {
+    return userRepository.updateUser(user);
   }
 }

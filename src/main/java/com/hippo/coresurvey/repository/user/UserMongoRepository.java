@@ -24,9 +24,16 @@ public class UserMongoRepository implements UserRepository {
   }
 
   @Override
-  public User addUser(User user) {
+  public User updateUser(User user) {
+    Optional<UserMongoEntity> existingUser = this.userStore.findByEmail(user.getEmail());
+
+    if (existingUser.isPresent()) {
+      UserMongoEntity e = existingUser.get();
+      user.setId(e.getId());
+    }
+
     UserMongoEntity entity = UserMongoEntity.fromDomainObject(user);
 
-    return userStore.insert(entity).toDomainObject();
+    return userStore.save(entity).toDomainObject();
   }
 }

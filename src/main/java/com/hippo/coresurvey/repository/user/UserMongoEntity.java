@@ -4,6 +4,7 @@ import com.hippo.coresurvey.domain.user.Gender;
 import com.hippo.coresurvey.domain.user.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
@@ -15,6 +16,7 @@ public class UserMongoEntity {
   @Id
   private String id;
 
+  @Indexed(unique = true)
   private String email;
 
   private String firstName;
@@ -56,5 +58,9 @@ public class UserMongoEntity {
         user.getDateOfBirth(),
         user.getGender()
     );
+  }
+
+  public String getId() {
+    return id;
   }
 }

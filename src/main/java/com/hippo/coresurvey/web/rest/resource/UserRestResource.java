@@ -2,15 +2,18 @@ package com.hippo.coresurvey.web.rest.resource;
 
 import com.hippo.coresurvey.domain.user.Gender;
 import com.hippo.coresurvey.domain.user.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 public class UserRestResource {
+
   public String id;
 
-  //  @NotBlank
+  @NotBlank
   @Email
   public String email;
 
@@ -19,6 +22,7 @@ public class UserRestResource {
   public String lastName;
 
   @NotNull
+  @DateTimeFormat()
   public Instant dateOfBirth;
 
   @NotNull

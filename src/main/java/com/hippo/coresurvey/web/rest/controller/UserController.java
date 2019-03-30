@@ -33,10 +33,10 @@ public class UserController {
     return ResponseEntity.notFound().build();
   }
 
-  @PostMapping()
-  public ResponseEntity<?> postNewUser(@RequestBody @Valid UserRestResource user) {
+  @PutMapping()
+  public ResponseEntity<?> updateUser(@RequestBody @Valid UserRestResource user) {
 
-    User persistedUser = userService.addUser(user.toDomainObject());
+    User persistedUser = userService.updateUser(user.toDomainObject());
     UserRestResource response = UserRestResource.fromDomainObject(persistedUser);
 
     return ResponseEntity.ok(response);
