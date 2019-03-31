@@ -2,6 +2,7 @@ package com.hippo.coresurvey.web.rest.resource;
 
 import com.hippo.coresurvey.domain.question.AnsweredQuestion;
 import com.hippo.coresurvey.domain.submission.Submission;
+import com.hippo.coresurvey.domain.user.User;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +15,9 @@ public class SubmissionRestResource {
   public String id;
 
   public Instant timestamp;
+
+  @Valid
+  public UserRestResource user;
 
   @NotNull
   @Valid
@@ -28,22 +32,27 @@ public class SubmissionRestResource {
   public SubmissionRestResource(
       String id,
       Instant timestamp,
+      @Valid UserRestResource user,
       @NotNull @Valid SurveyRestResource survey,
       @NotEmpty List<AnsweredQuestion> answers) {
     this.id = id;
     this.timestamp = timestamp;
+    this.user = user;
     this.survey = survey;
     this.answers = answers;
   }
 
   public Submission toDomainObject() {
-    return new Submission(id, timestamp, survey.toDomainObject(), answers);
+    User domainUser = user == null ? null : user.toDomainObject();
+
+    return new Submission(id, timestamp, domainUser, survey.toDomainObject(), answers);
   }
 
   public static SubmissionRestResource fromDomainObject(Submission submission) {
     return new SubmissionRestResource(
         submission.getId(),
         submission.getTimestamp(),
+        UserRestResource.fromDomainObject(submission.getUser()),
         SurveyRestResource.fromDomainObject(submission.getSurvey()),
         submission.getAnswers()
     );

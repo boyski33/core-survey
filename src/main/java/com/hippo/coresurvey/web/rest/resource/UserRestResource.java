@@ -13,19 +13,16 @@ public class UserRestResource {
 
   public String id;
 
-  @NotBlank
-  @Email
+  @Email(message = "Email not formatted properly.")
   public String email;
 
   public String firstName;
 
   public String lastName;
 
-  @NotNull
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   public Date dateOfBirth;
 
-  @NotNull
   public Gender gender;
 
   public UserRestResource() {
@@ -36,8 +33,8 @@ public class UserRestResource {
       @Email String email,
       String firstName,
       String lastName,
-      @NotNull Date dateOfBirth,
-      @NotNull Gender gender) {
+      Date dateOfBirth,
+      Gender gender) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
@@ -51,6 +48,10 @@ public class UserRestResource {
   }
 
   public static UserRestResource fromDomainObject(User user) {
+    if (user == null) {
+      return null;
+    }
+
     return new UserRestResource(
         user.getId(),
         user.getEmail(),

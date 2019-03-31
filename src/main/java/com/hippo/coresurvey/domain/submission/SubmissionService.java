@@ -1,5 +1,8 @@
 package com.hippo.coresurvey.domain.submission;
 
+import com.hippo.coresurvey.domain.survey.SurveyService;
+import com.hippo.coresurvey.domain.user.User;
+import com.hippo.coresurvey.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +13,12 @@ import java.util.Optional;
 public class SubmissionService {
 
   private final SubmissionRepository submissionRepository;
+  private final UserService userService;
 
   @Autowired
-  public SubmissionService(SubmissionRepository submissionRepository) {
+  public SubmissionService(SubmissionRepository submissionRepository, UserService userService) {
     this.submissionRepository = submissionRepository;
+    this.userService = userService;
   }
 
   public List<Submission> getAllSubmissions() {
@@ -29,6 +34,15 @@ public class SubmissionService {
   }
 
   public Submission addSubmission(Submission submission) {
+    String email = submission.getUser().getEmail();
+    submission.setUser(getUserData(email));
+
     return submissionRepository.addSubmission(submission);
+  }
+
+  private User getUserData(String email) {
+    Optional<User> user = userService.getUserByEmail(email);
+
+    return user.orElse(null);
   }
 }

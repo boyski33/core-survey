@@ -23,6 +23,10 @@ public class User {
     this.gender = gender;
   }
 
+  public User(User other) {
+    this(other.id, other.email, other.firstName, other.lastName, other.dateOfBirth, other.gender);
+  }
+
   public String getId() {
     return id;
   }

@@ -8,6 +8,11 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Document(collection = "users")
@@ -17,6 +22,8 @@ public class UserMongoEntity {
   @Id
   private String id;
 
+  @NotBlank
+  @Email
   @Indexed(unique = true)
   private String email;
 
@@ -24,9 +31,12 @@ public class UserMongoEntity {
 
   private String lastName;
 
+  @NotNull
+  @Past(message = "Date of birth must be in the past.")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private Date dateOfBirth;
 
+  @NotNull
   private Gender gender;
 
   public UserMongoEntity() {
@@ -34,11 +44,11 @@ public class UserMongoEntity {
 
   public UserMongoEntity(
       String id,
-      String email,
+      @NotBlank String email,
       String firstName,
       String lastName,
-      Date dateOfBirth,
-      Gender gender) {
+      @NotNull Date dateOfBirth,
+      @NotNull Gender gender) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
@@ -47,11 +57,19 @@ public class UserMongoEntity {
     this.gender = gender;
   }
 
+  public UserMongoEntity(UserMongoEntity other) {
+    this(other.id, other.email, other.firstName, other.lastName, other.dateOfBirth, other.gender);
+  }
+
   public User toDomainObject() {
     return new User(id, email, firstName, lastName, dateOfBirth, gender);
   }
 
   public static UserMongoEntity fromDomainObject(User user) {
+    if (user == null) {
+      return null;
+    }
+
     return new UserMongoEntity(
         user.getId(),
         user.getEmail(),
