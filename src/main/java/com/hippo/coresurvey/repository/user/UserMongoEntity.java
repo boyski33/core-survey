@@ -2,6 +2,7 @@ package com.hippo.coresurvey.repository.user;
 
 import com.hippo.coresurvey.domain.user.Gender;
 import com.hippo.coresurvey.domain.user.User;
+import com.mongodb.lang.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -24,7 +25,7 @@ public class UserMongoEntity {
 
   @NotBlank
   @Email
-  @Indexed(unique = true)
+  @Indexed(unique = true, sparse = true)
   private String email;
 
   private String firstName;

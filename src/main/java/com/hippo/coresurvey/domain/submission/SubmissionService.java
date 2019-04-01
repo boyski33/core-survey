@@ -1,6 +1,5 @@
 package com.hippo.coresurvey.domain.submission;
 
-import com.hippo.coresurvey.domain.survey.SurveyService;
 import com.hippo.coresurvey.domain.user.User;
 import com.hippo.coresurvey.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +33,27 @@ public class SubmissionService {
   }
 
   public Submission addSubmission(Submission submission) {
-    String email = submission.getUser().getEmail();
-    submission.setUser(getUserData(email));
+    if (submission.getUser() == null) {
+      submission.setUser(null);
+    } else {
+      String email = submission.getUser().getEmail();
+      submission.setUser(getUserData(email));
+    }
 
     return submissionRepository.addSubmission(submission);
+  }
+
+  public boolean userAlreadyPostedSubmission(Submission submission) {
+    if (submission.getUser() == null) {
+      return false;
+    }
+
+    List<Submission> userSubmissions =
+        submissionRepository.getSubmissionsForSurveyAndUser(
+            submission.getSurvey().getId(),
+            submission.getUser().getEmail());
+
+    return !userSubmissions.isEmpty();
   }
 
   private User getUserData(String email) {

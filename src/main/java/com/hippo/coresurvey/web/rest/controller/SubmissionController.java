@@ -4,6 +4,7 @@ import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.domain.submission.SubmissionService;
 import com.hippo.coresurvey.web.rest.resource.SubmissionRestResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,8 +60,20 @@ public class SubmissionController {
     return ResponseEntity.ok(submissions);
   }
 
+  /**
+   * Post a new submission for a survey. Submissions can either have a null user, or a user with
+   * an email property. A request will be made to find if such a user exists in the database.
+   * If not, the submission with be persisted with a null User field.
+   *
+   * @param submission the resource with a <pre>user: {email: string}</pre> or null
+   * @return 200 OK with the submission or 400 Bad Request if submission for survey already posted
+   */
   @PostMapping()
-  public ResponseEntity<SubmissionRestResource> postSubmission(@RequestBody @Valid SubmissionRestResource submission) {
+  public ResponseEntity<?> postSubmission(@RequestBody @Valid SubmissionRestResource submission) {
+
+    if (submissionService.userAlreadyPostedSubmission(submission.toDomainObject())) {
+      return ResponseEntity.badRequest().body("You cannot post another submission.");
+    }
 
     Submission persistedSubmission = submissionService.addSubmission(submission.toDomainObject());
     SubmissionRestResource response = SubmissionRestResource.fromDomainObject(persistedSubmission);

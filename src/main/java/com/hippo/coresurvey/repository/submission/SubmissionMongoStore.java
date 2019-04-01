@@ -17,4 +17,6 @@ public interface SubmissionMongoStore extends MongoRepository<SubmissionMongoEnt
   <S extends SubmissionMongoEntity> S insert(S entity);
 
   List<SubmissionMongoEntity> findBySurveyId(String surveyId);
+
+  List<SubmissionMongoEntity> findBySurveyIdAndUserEmail(String surveyId, String userEmail);
 }

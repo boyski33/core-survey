@@ -11,5 +11,7 @@ public interface SubmissionRepository {
 
   List<Submission> getSubmissionsForSurvey(String surveyId);
 
+  List<Submission> getSubmissionsForSurveyAndUser(String surveyId, String userEmail);
+
   Submission addSubmission(Submission submission);
 }
