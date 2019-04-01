@@ -16,10 +16,9 @@ public class SubmissionRestResource {
 
   public Instant timestamp;
 
-  @Valid
   public UserRestResource user;
 
-  @NotNull
+  @NotNull(message = "Survey object cannot be null.")
   @Valid
   public SurveyRestResource survey;
 
@@ -32,7 +31,7 @@ public class SubmissionRestResource {
   public SubmissionRestResource(
       String id,
       Instant timestamp,
-      @Valid UserRestResource user,
+      UserRestResource user,
       @NotNull @Valid SurveyRestResource survey,
       @NotEmpty List<AnsweredQuestion> answers) {
     this.id = id;

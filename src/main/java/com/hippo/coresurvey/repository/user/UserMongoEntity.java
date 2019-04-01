@@ -32,7 +32,7 @@ public class UserMongoEntity {
   private String lastName;
 
   @NotNull
-  @Past(message = "Date of birth must be in the past.")
+  @Past
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private Date dateOfBirth;
 

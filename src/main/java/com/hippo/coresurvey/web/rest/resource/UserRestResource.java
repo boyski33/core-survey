@@ -7,12 +7,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 public class UserRestResource {
 
   public String id;
 
+  @NotBlank
   @Email(message = "Email not formatted properly.")
   public String email;
 
@@ -20,9 +22,12 @@ public class UserRestResource {
 
   public String lastName;
 
+  @NotNull
+  @Past(message = "Date of birth should be in the past")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   public Date dateOfBirth;
 
+  @NotNull
   public Gender gender;
 
   public UserRestResource() {
