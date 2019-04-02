@@ -4,7 +4,6 @@ import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.domain.submission.SubmissionService;
 import com.hippo.coresurvey.web.rest.resource.SubmissionRestResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,6 +53,17 @@ public class SubmissionController {
 
     List<SubmissionRestResource> submissions =
         submissionService.getSubmissionsForSurvey(surveyId).stream()
+            .map(SubmissionRestResource::fromDomainObject)
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok(submissions);
+  }
+
+  @GetMapping("/user/{userEmail}")
+  public ResponseEntity<List<SubmissionRestResource>> getSubmissionsOfUser(@PathVariable("userEmail") String userEmail) {
+
+    List<SubmissionRestResource> submissions =
+        submissionService.getSubmissionsOfUser(userEmail).stream()
             .map(SubmissionRestResource::fromDomainObject)
             .collect(Collectors.toList());
 

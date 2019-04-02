@@ -5,6 +5,7 @@ import com.hippo.coresurvey.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,10 @@ public class SubmissionService {
 
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
     return submissionRepository.getSubmissionsForSurvey(surveyId);
+  }
+
+  public List<Submission> getSubmissionsOfUser(String userEmail) {
+    return submissionRepository.getSubmissionsOfUser(userEmail);
   }
 
   public Submission addSubmission(Submission submission) {

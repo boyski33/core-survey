@@ -40,6 +40,13 @@ public class SubmissionMongoRepository implements SubmissionRepository {
   }
 
   @Override
+  public List<Submission> getSubmissionsOfUser(String userEmail) {
+    return submissionStore.findByUserEmail(userEmail).stream()
+        .map(SubmissionMongoEntity::toDomainObject)
+        .collect(Collectors.toList());
+  }
+
+  @Override
   public List<Submission> getSubmissionsForSurveyAndUser(String surveyId, String userEmail) {
     return submissionStore.findBySurveyIdAndUserEmail(surveyId, userEmail).stream()
         .map(SubmissionMongoEntity::toDomainObject)
