@@ -82,7 +82,7 @@ public class SubmissionController {
   public ResponseEntity<?> postSubmission(@RequestBody @Valid SubmissionRestResource submission) {
 
     if (submissionService.userAlreadyPostedSubmission(submission.toDomainObject())) {
-      return ResponseEntity.badRequest().body("You cannot post another submission.");
+      return ResponseEntity.badRequest().body("Submission already posted.");
     }
 
     Submission persistedSubmission = submissionService.addSubmission(submission.toDomainObject());
