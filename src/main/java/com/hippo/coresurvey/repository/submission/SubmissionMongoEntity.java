@@ -2,7 +2,6 @@ package com.hippo.coresurvey.repository.submission;
 
 import com.hippo.coresurvey.domain.question.AnsweredQuestion;
 import com.hippo.coresurvey.domain.submission.Submission;
-import com.hippo.coresurvey.domain.survey.Survey;
 import com.hippo.coresurvey.domain.user.User;
 import com.hippo.coresurvey.repository.survey.SurveyMongoEntity;
 import com.hippo.coresurvey.repository.user.UserMongoEntity;

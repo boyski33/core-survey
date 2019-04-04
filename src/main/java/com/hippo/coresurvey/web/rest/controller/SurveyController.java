@@ -61,8 +61,25 @@ public class SurveyController {
 
     List<SurveyRestResource> surveys =
         surveyService.getSurveysForOwner(ownerEmail).stream()
-        .map(SurveyRestResource::fromDomainObject)
-        .collect(toList());
+            .map(SurveyRestResource::fromDomainObject)
+            .collect(toList());
+
+    return ResponseEntity.ok(surveys);
+  }
+
+  /**
+   * Get the surveys not yet taken by the logged in user.
+   *
+   * @param userEmail the email of the currently logged in user
+   * @return list of Surveys
+   */
+  @GetMapping("/for-user/{email}")
+  public ResponseEntity<List<SurveyRestResource>> getSurveysForUser(@PathVariable("email") String userEmail) {
+
+    List<SurveyRestResource> surveys =
+        surveyService.getSurveysForUser(userEmail).stream()
+            .map(SurveyRestResource::fromDomainObject)
+            .collect(toList());
 
     return ResponseEntity.ok(surveys);
   }
