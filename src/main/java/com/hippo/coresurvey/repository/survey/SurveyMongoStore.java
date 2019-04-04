@@ -17,7 +17,7 @@ public interface SurveyMongoStore extends MongoRepository<SurveyMongoEntity, Str
   @Override
   Optional<SurveyMongoEntity> findById(String id);
 
-  @Query(value = "{}", fields = "{questions: 0}")
+  @Query(value = "{ 'ownerEmail' : ?0}", fields = "{questions: 0}")
   List<SurveyMongoEntity> findByOwnerEmail(String email);
 
   @Override

@@ -23,8 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     JwtWebSecurityConfigurer.forRS256(apiAudience, issuer)
         .configure(http)
         .authorizeRequests()
-        .antMatchers(HttpMethod.GET, "/submissions/**").hasAnyAuthority("view:submissions")
-        .antMatchers(HttpMethod.GET, "/users/**").authenticated()
+        .antMatchers(HttpMethod.GET, "/surveys/for-user/**", "/submissions/**", "/users/**").authenticated()
         .antMatchers(HttpMethod.POST, "/surveys/**", "/users/**").authenticated()
         .antMatchers(HttpMethod.PUT, "/users/**").authenticated();
   }
