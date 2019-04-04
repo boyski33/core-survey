@@ -11,6 +11,7 @@ import static com.hippo.coresurvey.domain.util.DateTimeUtil.nowIfNull;
 public class Survey {
 
   private String id;
+  private String ownerEmail;
   private String title;
   private String description;
   private Instant timestamp;
@@ -20,8 +21,9 @@ public class Survey {
   public Survey() {
   }
 
-  public Survey(String id, String title, String description, Instant timestamp, List<Question> questions) {
+  public Survey(String id, String email, String title, String description, Instant timestamp, List<Question> questions) {
     this.id = id;
+    this.ownerEmail = email;
     this.title = title;
     this.description = description;
     this.timestamp = nowIfNull(timestamp);
@@ -29,11 +31,15 @@ public class Survey {
   }
 
   public Survey(Survey survey) {
-    this(survey.id, survey.title, survey.description, survey.timestamp, survey.questions);
+    this(survey.id, survey.ownerEmail, survey.title, survey.description, survey.timestamp, survey.questions);
   }
 
   public String getId() {
     return id;
+  }
+
+  public String getOwnerEmail() {
+    return ownerEmail;
   }
 
   public String getTitle() {
@@ -50,15 +56,6 @@ public class Survey {
 
   public List<Question> getQuestions() {
     return questions;
-  }
-
-  @Override
-  public String toString() {
-    return "Survey{" +
-        "id='" + id + '\'' +
-        ", title='" + title + '\'' +
-        ", description='" + description + '\'' +
-        '}';
   }
 
 }

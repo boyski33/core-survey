@@ -59,8 +59,31 @@ public class SubmissionController {
     return ResponseEntity.ok(submissions);
   }
 
+  @GetMapping("/user/{userEmail}")
+  public ResponseEntity<List<SubmissionRestResource>> getSubmissionsOfUser(@PathVariable("userEmail") String userEmail) {
+
+    List<SubmissionRestResource> submissions =
+        submissionService.getSubmissionsOfUser(userEmail).stream()
+            .map(SubmissionRestResource::fromDomainObject)
+            .collect(Collectors.toList());
+
+    return ResponseEntity.ok(submissions);
+  }
+
+  /**
+   * Post a new submission for a survey. Submissions can either have a null user, or a user with
+   * an email property. A request will be made to find if such a user exists in the database.
+   * If not, the submission with be persisted with a null User field.
+   *
+   * @param submission the resource with a <pre>user: {email: string}</pre> or null
+   * @return 200 OK with the submission or 400 Bad Request if submission for survey already posted
+   */
   @PostMapping()
-  public ResponseEntity<SubmissionRestResource> postSubmission(@RequestBody @Valid SubmissionRestResource submission) {
+  public ResponseEntity<?> postSubmission(@RequestBody @Valid SubmissionRestResource submission) {
+
+    if (submissionService.userAlreadyPostedSubmission(submission.toDomainObject())) {
+      return ResponseEntity.badRequest().body("Submission already posted.");
+    }
 
     Submission persistedSubmission = submissionService.addSubmission(submission.toDomainObject());
     SubmissionRestResource response = SubmissionRestResource.fromDomainObject(persistedSubmission);

@@ -5,7 +5,6 @@ import com.hippo.coresurvey.domain.question.QuestionControlType;
 import com.hippo.coresurvey.domain.question.QuestionOption;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

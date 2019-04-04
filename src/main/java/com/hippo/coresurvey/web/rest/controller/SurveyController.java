@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/surveys")
@@ -29,8 +30,8 @@ public class SurveyController {
 
     List<SurveyRestResource> surveys =
         surveyService.getAllSurveys(displayOnlyMeta).stream()
-        .map(SurveyRestResource::fromDomainObject)
-        .collect(Collectors.toList());
+            .map(SurveyRestResource::fromDomainObject)
+            .collect(toList());
 
     return ResponseEntity.ok(surveys);
   }
@@ -47,6 +48,40 @@ public class SurveyController {
     }
 
     return ResponseEntity.notFound().build();
+  }
+
+  /**
+   * Get survey metadata (without question list) for the given email.
+   *
+   * @param ownerEmail the email of the surveys owner
+   * @return list of Surveys
+   */
+  @GetMapping("/user/{email}")
+  public ResponseEntity<List<SurveyRestResource>> getSurveysForOwner(@PathVariable("email") String ownerEmail) {
+
+    List<SurveyRestResource> surveys =
+        surveyService.getSurveysForOwner(ownerEmail).stream()
+            .map(SurveyRestResource::fromDomainObject)
+            .collect(toList());
+
+    return ResponseEntity.ok(surveys);
+  }
+
+  /**
+   * Get the surveys not yet taken by the logged in user.
+   *
+   * @param userEmail the email of the currently logged in user
+   * @return list of Surveys
+   */
+  @GetMapping("/for-user/{email}")
+  public ResponseEntity<List<SurveyRestResource>> getSurveysForUser(@PathVariable("email") String userEmail) {
+
+    List<SurveyRestResource> surveys =
+        surveyService.getSurveysForUser(userEmail).stream()
+            .map(SurveyRestResource::fromDomainObject)
+            .collect(toList());
+
+    return ResponseEntity.ok(surveys);
   }
 
   @PostMapping()

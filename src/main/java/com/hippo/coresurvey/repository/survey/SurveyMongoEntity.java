@@ -19,6 +19,7 @@ public class SurveyMongoEntity {
   @Id
   private String id;
 
+  private String ownerEmail;
   private String title;
   private String description;
   private Instant timestamp;
@@ -28,21 +29,33 @@ public class SurveyMongoEntity {
   public SurveyMongoEntity() {
   }
 
-  public SurveyMongoEntity(String id, String title, String description, Instant timestamp, List<Question> questions) {
+  public SurveyMongoEntity(
+      String id,
+      String ownerEmail,
+      String title,
+      String description,
+      Instant timestamp,
+      List<Question> questions) {
     this.id = id;
+    this.ownerEmail = ownerEmail;
     this.title = title;
     this.description = description;
     this.timestamp = nowIfNull(timestamp);
     this.questions = ofNullableList(questions);
   }
 
+  public SurveyMongoEntity(SurveyMongoEntity other) {
+    this(other.id, other.ownerEmail, other.title, other.description, other.timestamp, other.questions);
+  }
+
   public Survey toDomainObject() {
-    return new Survey(id, title, description, timestamp, questions);
+    return new Survey(id, ownerEmail, title, description, timestamp, questions);
   }
 
   public static SurveyMongoEntity fromDomainObject(Survey survey) {
     return new SurveyMongoEntity(
         survey.getId(),
+        survey.getOwnerEmail(),
         survey.getTitle(),
         survey.getDescription(),
         survey.getTimestamp(),
@@ -51,6 +64,10 @@ public class SurveyMongoEntity {
 
   public String getId() {
     return id;
+  }
+
+  public String getOwnerEmail() {
+    return ownerEmail;
   }
 
   public String getTitle() {
