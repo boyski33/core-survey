@@ -25,7 +25,6 @@ public class UserMongoEntity {
 
   @NotBlank
   @Email
-  @Indexed(unique = true, sparse = true)
   private String email;
 
   private String firstName;
