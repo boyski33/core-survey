@@ -3,7 +3,6 @@ package com.hippo.coresurvey.domain.stats;
 import com.hippo.coresurvey.domain.submission.Submission;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
 

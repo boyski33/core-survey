@@ -2,7 +2,6 @@ package com.hippo.coresurvey.repository.submission;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
