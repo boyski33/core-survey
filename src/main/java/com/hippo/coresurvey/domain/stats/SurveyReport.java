@@ -9,21 +9,21 @@ import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
 
 public class SurveyReport {
   private List<Submission> submissions;
-  private Map<String, Map<String, Integer>> answerStats;
+  private List<QuestionStats> surveyStats;
 
   public SurveyReport() {
   }
 
-  public SurveyReport(List<Submission> submissions, Map<String, Map<String, Integer>> answerStats) {
+  public SurveyReport(List<Submission> submissions, List<QuestionStats> surveyStats) {
     this.submissions = ofNullableList(submissions);
-    this.answerStats = answerStats;
+    this.surveyStats = ofNullableList(surveyStats);
   }
 
   public List<Submission> getSubmissions() {
     return submissions;
   }
 
-  public Map<String, Map<String, Integer>> getAnswerStats() {
-    return answerStats;
+  public List<QuestionStats> getSurveyStats() {
+    return surveyStats;
   }
 }

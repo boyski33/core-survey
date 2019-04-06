@@ -1,6 +1,8 @@
 package com.hippo.coresurvey.domain.survey;
 
 import com.hippo.coresurvey.domain.question.AnsweredQuestion;
+import com.hippo.coresurvey.domain.question.Question;
+import com.hippo.coresurvey.domain.stats.QuestionStats;
 import com.hippo.coresurvey.domain.stats.SurveyReport;
 import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.domain.submission.SubmissionRepository;
@@ -55,31 +57,35 @@ public class SurveyService {
 
   public SurveyReport getReportForSurvey(String surveyId) {
     List<Submission> submissions = submissionRepository.getSubmissionsForSurvey(surveyId);
-    Map<String, Map<String, Integer>> answerStats = submissions.isEmpty() ?
-        Collections.emptyMap() : extractAnswerStatsFromSubmissions(submissions);
+    List<QuestionStats> surveyStats = submissions.isEmpty() ?
+        Collections.emptyList() : extractSurveyStatsFromSubmissions(submissions);
 
-    return new SurveyReport(submissions, answerStats);
+    return new SurveyReport(submissions, surveyStats);
   }
 
-  private Map<String, Map<String, Integer>> extractAnswerStatsFromSubmissions(List<Submission> submissions) {
-    // TODO: write a few unit tests
+  private List<QuestionStats> extractSurveyStatsFromSubmissions(List<Submission> submissions) {
 
-    Map<String, Map<String, Integer>> stats = new HashMap<>();
+    List<Question> surveyQuestions = submissions.get(0).getSurvey().getQuestions();
+
+    List<QuestionStats> stats = new ArrayList<>(surveyQuestions.size());
+
     List<AnsweredQuestion> answeredQuestions = submissions.stream()
         .map(Submission::getAnswers)
         .flatMap(Collection::stream)
         .collect(Collectors.toList());
 
-    submissions.get(0).getSurvey().getQuestions().forEach(q -> {
-      stats.put(q.getKey(), new HashMap<>());
-    });
+    for (Question question : surveyQuestions) {
+      Map<String, Integer> answers = new HashMap<>();
 
-    answeredQuestions.forEach(ans -> {
-      Map<String, Integer> answerMap = stats.get(ans.getQuestion().getKey());
-      Integer answerCount = answerMap.getOrDefault(ans.getAnswer(), 0);
+      answeredQuestions.stream()
+          .filter(answeredQuestion -> answeredQuestion.getQuestion().getKey().equals(question.getKey()))
+          .forEach(answeredQuestion -> {
+            Integer count = answers.getOrDefault(answeredQuestion.getAnswer(), 0);
+            answers.put(answeredQuestion.getAnswer(), count + 1);
+          });
 
-      answerMap.put(ans.getAnswer(), answerCount + 1);
-    });
+      stats.add(new QuestionStats(question, answers));
+    }
 
     return stats;
   }
