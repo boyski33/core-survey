@@ -3,7 +3,6 @@ package com.hippo.coresurvey.web.rest.controller;
 import com.hippo.coresurvey.domain.stats.SurveyReport;
 import com.hippo.coresurvey.domain.survey.Survey;
 import com.hippo.coresurvey.domain.survey.SurveyService;
-import com.hippo.coresurvey.web.rest.resource.SurveyReportRestResource;
 import com.hippo.coresurvey.web.rest.resource.SurveyRestResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -105,8 +104,7 @@ public class SurveyController {
   public ResponseEntity<?> getReportForSurvey(@PathVariable("surveyId") String surveyId) {
 
     SurveyReport surveyReport = surveyService.getReportForSurvey(surveyId);
-    SurveyReportRestResource response = SurveyReportRestResource.fromDomainObject(surveyReport);
 
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok(surveyReport);
   }
 }

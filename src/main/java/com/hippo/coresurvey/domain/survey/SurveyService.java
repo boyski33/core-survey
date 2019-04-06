@@ -1,5 +1,6 @@
 package com.hippo.coresurvey.domain.survey;
 
+import com.hippo.coresurvey.domain.question.Question;
 import com.hippo.coresurvey.domain.stats.SurveyReport;
 import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.domain.submission.SubmissionRepository;
@@ -57,15 +58,15 @@ public class SurveyService {
 
   public SurveyReport getReportForSurvey(String surveyId) {
     List<Submission> submissions = submissionRepository.getSubmissionsForSurvey(surveyId);
-    Map<String, Integer> answerStats = getAnswerStatsFromSubmissions(submissions);
+    Map<Question, Map<String, Integer>> answerStats = getAnswerStatsFromSubmissions(submissions);
 
     return new SurveyReport(submissions, answerStats);
   }
 
-  private Map<String, Integer> getAnswerStatsFromSubmissions(List<Submission> submissions) {
-    Map<String, Integer> stats = new HashMap<>();
+  private Map<Question, Map<String, Integer>> getAnswerStatsFromSubmissions(List<Submission> submissions) {
+    Map<Question, Map<String, Integer>> stats = new HashMap<>();
 
-    // TODO
+
 
     return stats;
   }

@@ -1,5 +1,6 @@
 package com.hippo.coresurvey.domain.survey;
 
+import com.hippo.coresurvey.domain.submission.MockSubmissionRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class SurveyServiceTest {
 
   @Before
   public void setup() {
-    this.surveyService = new SurveyService(new MockSurveyRepository());
+    this.surveyService = new SurveyService(new MockSurveyRepository(), new MockSubmissionRepository());
   }
 
   @Test
