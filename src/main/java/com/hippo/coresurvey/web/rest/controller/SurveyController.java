@@ -1,7 +1,9 @@
 package com.hippo.coresurvey.web.rest.controller;
 
+import com.hippo.coresurvey.domain.stats.SurveyReport;
 import com.hippo.coresurvey.domain.survey.Survey;
 import com.hippo.coresurvey.domain.survey.SurveyService;
+import com.hippo.coresurvey.web.rest.resource.SurveyReportRestResource;
 import com.hippo.coresurvey.web.rest.resource.SurveyRestResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -89,6 +91,21 @@ public class SurveyController {
 
     Survey persistedSurvey = surveyService.addSurvey(survey.toDomainObject());
     SurveyRestResource response = SurveyRestResource.fromDomainObject(persistedSurvey);
+
+    return ResponseEntity.ok(response);
+  }
+
+  /**
+   * Get a list of all survey submissions and statistics of the given answers.
+   *
+   * @param surveyId the ID of the survey you need a report for
+   * @return a list of submissions and a map of answer count
+   */
+  @GetMapping("report/{surveyId}")
+  public ResponseEntity<?> getReportForSurvey(@PathVariable("surveyId") String surveyId) {
+
+    SurveyReport surveyReport = surveyService.getReportForSurvey(surveyId);
+    SurveyReportRestResource response = SurveyReportRestResource.fromDomainObject(surveyReport);
 
     return ResponseEntity.ok(response);
   }

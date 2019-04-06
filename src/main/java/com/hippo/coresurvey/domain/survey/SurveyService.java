@@ -1,10 +1,14 @@
 package com.hippo.coresurvey.domain.survey;
 
+import com.hippo.coresurvey.domain.stats.SurveyReport;
+import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.domain.submission.SubmissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -51,4 +55,18 @@ public class SurveyService {
     return surveyRepository.addSurvey(survey);
   }
 
+  public SurveyReport getReportForSurvey(String surveyId) {
+    List<Submission> submissions = submissionRepository.getSubmissionsForSurvey(surveyId);
+    Map<String, Integer> answerStats = getAnswerStatsFromSubmissions(submissions);
+
+    return new SurveyReport(submissions, answerStats);
+  }
+
+  private Map<String, Integer> getAnswerStatsFromSubmissions(List<Submission> submissions) {
+    Map<String, Integer> stats = new HashMap<>();
+
+    // TODO
+
+    return stats;
+  }
 }
