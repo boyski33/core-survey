@@ -56,8 +56,9 @@ public class SurveyRestResource {
   }
 
   public static SurveyRestResource fromDomainObject(Survey survey) {
-    List<QuestionRestResource> questionRestResources =
-        survey.getQuestions().stream().map(QuestionRestResource::fromDomainObject).collect(Collectors.toList());
+    List<QuestionRestResource> questionRestResources = survey.getQuestions().stream()
+        .map(QuestionRestResource::fromDomainObject)
+        .collect(Collectors.toList());
 
     return new SurveyRestResource(
         survey.getId(),
