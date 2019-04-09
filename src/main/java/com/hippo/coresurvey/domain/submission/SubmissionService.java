@@ -1,5 +1,6 @@
 package com.hippo.coresurvey.domain.submission;
 
+import com.hippo.coresurvey.domain.analytics.AnalyticsService;
 import com.hippo.coresurvey.domain.user.User;
 import com.hippo.coresurvey.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,15 @@ public class SubmissionService {
 
   private final SubmissionRepository submissionRepository;
   private final UserService userService;
+  private final AnalyticsService analyticsService;
 
   @Autowired
-  public SubmissionService(SubmissionRepository submissionRepository, UserService userService) {
+  public SubmissionService(SubmissionRepository submissionRepository,
+                           UserService userService,
+                           AnalyticsService analyticsService) {
     this.submissionRepository = submissionRepository;
     this.userService = userService;
+    this.analyticsService = analyticsService;
   }
 
   public List<Submission> getAllSubmissions() {
@@ -58,6 +63,10 @@ public class SubmissionService {
             submission.getUser().getEmail());
 
     return !userSubmissions.isEmpty();
+  }
+
+  private void sendSubmissionForAnalytics() {
+
   }
 
   private User getUserData(String email) {
