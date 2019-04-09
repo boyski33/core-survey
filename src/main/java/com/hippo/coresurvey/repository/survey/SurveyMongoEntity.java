@@ -29,13 +29,12 @@ public class SurveyMongoEntity {
   public SurveyMongoEntity() {
   }
 
-  public SurveyMongoEntity(
-      String id,
-      String ownerEmail,
-      String title,
-      String description,
-      Instant timestamp,
-      List<Question> questions) {
+  public SurveyMongoEntity(String id,
+                           String ownerEmail,
+                           String title,
+                           String description,
+                           Instant timestamp,
+                           List<Question> questions) {
     this.id = id;
     this.ownerEmail = ownerEmail;
     this.title = title;

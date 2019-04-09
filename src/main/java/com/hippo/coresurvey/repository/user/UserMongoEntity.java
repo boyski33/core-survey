@@ -39,13 +39,12 @@ public class UserMongoEntity {
   public UserMongoEntity() {
   }
 
-  public UserMongoEntity(
-      String id,
-      @NotBlank String email,
-      String firstName,
-      String lastName,
-      @NotNull Date dateOfBirth,
-      @NotNull Gender gender) {
+  public UserMongoEntity(String id,
+                         @NotBlank String email,
+                         String firstName,
+                         String lastName,
+                         @NotNull Date dateOfBirth,
+                         @NotNull Gender gender) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;

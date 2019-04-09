@@ -21,7 +21,12 @@ public class Survey {
   public Survey() {
   }
 
-  public Survey(String id, String email, String title, String description, Instant timestamp, List<Question> questions) {
+  public Survey(String id,
+                String email,
+                String title,
+                String description,
+                Instant timestamp,
+                List<Question> questions) {
     this.id = id;
     this.ownerEmail = email;
     this.title = title;

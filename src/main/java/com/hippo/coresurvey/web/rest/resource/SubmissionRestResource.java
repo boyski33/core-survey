@@ -28,12 +28,11 @@ public class SubmissionRestResource {
   public SubmissionRestResource() {
   }
 
-  public SubmissionRestResource(
-      String id,
-      Instant timestamp,
-      UserRestResource user,
-      @NotNull @Valid SurveyRestResource survey,
-      @NotEmpty List<AnsweredQuestion> answers) {
+  public SubmissionRestResource(String id,
+                                Instant timestamp,
+                                UserRestResource user,
+                                @NotNull @Valid SurveyRestResource survey,
+                                @NotEmpty List<AnsweredQuestion> answers) {
     this.id = id;
     this.timestamp = timestamp;
     this.user = user;
