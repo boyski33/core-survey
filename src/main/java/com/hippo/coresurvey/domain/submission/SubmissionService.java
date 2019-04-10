@@ -6,6 +6,7 @@ import com.hippo.coresurvey.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class SubmissionService {
   }
 
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
+    this.analyticsService.sendSubmissionBatch(Collections.emptyList());
     return submissionRepository.getSubmissionsForSurvey(surveyId);
   }
 
