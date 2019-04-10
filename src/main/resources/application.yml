@@ -13,6 +13,10 @@ spring:
     mongodb:
       uri: mongodb+srv://admin:admin@hippo-cluster-gya0k.mongodb.net/hippo-survey-db?retryWrites=true
 
+service:
+  user-analytics:
+    serviceId: HIPPO-USER-ANALYTICS
+
 auth0:
   issuer: https://hippo-survey.eu.auth0.com/
   apiAudience: http://localhost:8866
