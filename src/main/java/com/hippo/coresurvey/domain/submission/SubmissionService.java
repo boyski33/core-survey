@@ -35,7 +35,6 @@ public class SubmissionService {
   }
 
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
-    this.analyticsService.sendSubmissionBatch(Collections.emptyList());
     return submissionRepository.getSubmissionsForSurvey(surveyId);
   }
 

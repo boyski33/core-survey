@@ -1,5 +1,6 @@
 package com.hippo.coresurvey.web.rest.service;
 
+import com.hippo.coresurvey.domain.analytics.AnalyticsData;
 import com.hippo.coresurvey.domain.analytics.AnalyticsService;
 import com.hippo.coresurvey.domain.submission.Submission;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AnalyticsRestService implements AnalyticsService {
   }
 
   @Override
-  public void sendSubmissionBatch(List<Submission> submissions) {
+  public void sendAnalyticsData(AnalyticsData analyticsData) {
     ServiceInstance instance = client.choose(analyticsServiceId);
 
     if (instance == null) {
