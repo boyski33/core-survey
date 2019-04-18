@@ -20,3 +20,7 @@ service:
 auth0:
   issuer: https://hippo-survey.eu.auth0.com/
   apiAudience: http://localhost:8866
+
+analytics:
+  train-threshold: 15
+  retrain-count: 5

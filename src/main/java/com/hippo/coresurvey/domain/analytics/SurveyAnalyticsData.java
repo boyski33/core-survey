@@ -2,15 +2,15 @@ package com.hippo.coresurvey.domain.analytics;
 
 import java.util.List;
 
-public class AnalyticsData {
+public class SurveyAnalyticsData {
 
   private String surveyId;
   private List<AnalyticsSubmission> submissions;
 
-  public AnalyticsData() {
+  public SurveyAnalyticsData() {
   }
 
-  public AnalyticsData(String surveyId, List<AnalyticsSubmission> submissions) {
+  public SurveyAnalyticsData(String surveyId, List<AnalyticsSubmission> submissions) {
     this.surveyId = surveyId;
     this.submissions = submissions;
   }
