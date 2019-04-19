@@ -5,12 +5,12 @@ import java.util.List;
 public class SurveyAnalyticsData {
 
   private String surveyId;
-  private List<AnalyticsSubmission> submissions;
+  private List<AnalyticsNormalizedSubmission> submissions;
 
   public SurveyAnalyticsData() {
   }
 
-  public SurveyAnalyticsData(String surveyId, List<AnalyticsSubmission> submissions) {
+  public SurveyAnalyticsData(String surveyId, List<AnalyticsNormalizedSubmission> submissions) {
     this.surveyId = surveyId;
     this.submissions = submissions;
   }
@@ -19,7 +19,7 @@ public class SurveyAnalyticsData {
     return surveyId;
   }
 
-  public List<AnalyticsSubmission> getSubmissions() {
+  public List<AnalyticsNormalizedSubmission> getSubmissions() {
     return submissions;
   }
 }

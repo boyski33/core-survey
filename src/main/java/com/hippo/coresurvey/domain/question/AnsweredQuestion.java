@@ -8,6 +8,11 @@ public class AnsweredQuestion {
   public AnsweredQuestion() {
   }
 
+  public AnsweredQuestion(Question question, String answer) {
+    this.question = question;
+    this.answer = answer;
+  }
+
   public Question getQuestion() {
     return question;
   }
