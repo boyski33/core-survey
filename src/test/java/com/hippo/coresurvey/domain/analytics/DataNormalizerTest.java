@@ -36,6 +36,14 @@ public class DataNormalizerTest {
     assertEquals(49, analyticsSubmission.getUserAge());
   }
 
+  @Test
+  public void givenSubmissionWithNullUserShouldNotBeIncludedForAnalysis() {
+    List<Submission> submissions = getSubmissionStubs();
+    submissions.add(new Submission("id", Instant.MIN, null, null, getAnswerStubs()));
+    SurveyAnalyticsData analyticsData = DataNormalizer.convertFromSubmissionList(submissions);
+
+    assertEquals(2, analyticsData.getSubmissions().size());
+  }
 
   private List<Submission> getSubmissionStubs() {
     final User user =
