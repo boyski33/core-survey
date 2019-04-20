@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/boyski33/core-survey.svg?branch=master)](https://travis-ci.com/boyski33/core-survey)
+
 ### Core Survey microservice
 Hippo Survey platform microservice for handling creation and retrieval of surveys
 
@@ -5,7 +7,8 @@ Hippo Survey platform microservice for handling creation and retrieval of survey
 
 ### Version 0.4.0
 * Use Ribbon to communicate with Analytics service
-* 
+* Configure training threshold
+* Add more question types
 
 ### Version 0.3.0
 * Setup OAuth2 authentication with Auth0 remote server
