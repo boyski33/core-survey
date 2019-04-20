@@ -1,17 +1,26 @@
 package com.hippo.coresurvey.domain.submission;
 
 import com.hippo.coresurvey.domain.analytics.AnalyticsService;
+import com.hippo.coresurvey.domain.analytics.SurveyAnalyticsData;
 import com.hippo.coresurvey.domain.user.User;
 import com.hippo.coresurvey.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@PropertySource("classpath:application.yml")
 public class SubmissionService {
+
+  @Value("${analytics.train-threshold}")
+  private int trainThreshold;
+
+  @Value("${analytics.retrain-factor}")
+  private int retrainFactor;
 
   private final SubmissionRepository submissionRepository;
   private final UserService userService;
@@ -50,7 +59,10 @@ public class SubmissionService {
       submission.setUser(getUserData(email));
     }
 
-    return submissionRepository.addSubmission(submission);
+    Submission persisted = submissionRepository.addSubmission(submission);
+    analyzeSubmissions(persisted.getSurvey().getId());
+
+    return persisted;
   }
 
   public boolean userAlreadyPostedSubmission(Submission submission) {
@@ -66,8 +78,18 @@ public class SubmissionService {
     return !userSubmissions.isEmpty();
   }
 
-  private void sendSubmissionForAnalytics() {
+  // todo make async
+  private void analyzeSubmissions(String surveyId) {
+    long count = submissionRepository.getCountOfSubmissionsByExistingUsers(surveyId);
 
+    if (isTimeToTrain(count)) {
+      List<Submission> submissions = submissionRepository.getSubmissionsForSurvey(surveyId);
+      analyticsService.sendAnalyticsData(SurveyAnalyticsData.fromSubmissionList(submissions));
+    }
+  }
+
+  private boolean isTimeToTrain(long count) {
+    return count >= trainThreshold && (count - trainThreshold) % retrainFactor == 0;
   }
 
   private User getUserData(String email) {

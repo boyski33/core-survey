@@ -23,4 +23,4 @@ auth0:
 
 analytics:
   train-threshold: 15
-  retrain-count: 5
+  retrain-factor: 5

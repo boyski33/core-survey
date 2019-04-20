@@ -12,5 +12,4 @@ public class CoreSurveyApplication {
     SpringApplication.run(CoreSurveyApplication.class, args);
   }
 
-
 }
