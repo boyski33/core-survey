@@ -18,14 +18,14 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class DataNormalizerTest {
+public class SurveyAnalyticsDataTest {
 
   private Date dob = new Date(0); // Jan 1, 1970
 
   @Test
   public void givenSubmissionListReturnNormalizedAnalyticsDataObject() {
     List<Submission> submissions = getSubmissionStubs();
-    SurveyAnalyticsData analyticsData = DataNormalizer.convertFromSubmissionList(submissions);
+    SurveyAnalyticsData analyticsData = SurveyAnalyticsData.fromSubmissionList(submissions);
 
     AnalyticsNormalizedSubmission analyticsSubmission = analyticsData.getSubmissions().get(0);
 
@@ -39,7 +39,7 @@ public class DataNormalizerTest {
   public void givenSubmissionWithNullUserShouldNotBeIncludedForAnalysis() {
     List<Submission> submissions = getSubmissionStubs();
     submissions.add(new Submission("id", Instant.MIN, null, null, getAnswerStubs()));
-    SurveyAnalyticsData analyticsData = DataNormalizer.convertFromSubmissionList(submissions);
+    SurveyAnalyticsData analyticsData = SurveyAnalyticsData.fromSubmissionList(submissions);
 
     assertEquals(2, analyticsData.getSubmissions().size());
   }
