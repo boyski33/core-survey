@@ -1,7 +1,5 @@
 package com.hippo.coresurvey.domain.analytics;
 
-import static org.junit.Assert.*;
-
 import com.hippo.coresurvey.domain.question.AnsweredQuestion;
 import com.hippo.coresurvey.domain.question.Question;
 import com.hippo.coresurvey.domain.question.QuestionControlType;
@@ -17,11 +15,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 public class DataNormalizerTest {
 
-  private Date dob = new Date(); // Jan 1, 1970
-
-  private DataNormalizer dataNormalizer;
+  private Date dob = new Date(0); // Jan 1, 1970
 
   @Test
   public void givenSubmissionListReturnNormalizedAnalyticsDataObject() {
@@ -49,7 +48,7 @@ public class DataNormalizerTest {
     final User user =
         new User("id1", "mail@mail.bg", "John", "Smith", dob, Gender.MALE);
     final User user2 =
-        new User("id1", "mail@mail.bg", "Maria", "Smith", dob, Gender.FEMALE);
+        new User("id2", "mail@mail.bg", "Maria", "Smith", dob, Gender.FEMALE);
 
     List<Submission> submissions = new ArrayList<>();
     Survey survey = new Survey("id1", "", "", "", Instant.MIN, Collections.emptyList());
