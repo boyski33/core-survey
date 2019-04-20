@@ -33,13 +33,12 @@ public class UserRestResource {
   public UserRestResource() {
   }
 
-  public UserRestResource(
-      String id,
-      @Email String email,
-      String firstName,
-      String lastName,
-      Date dateOfBirth,
-      Gender gender) {
+  public UserRestResource(String id,
+                          @Email String email,
+                          String firstName,
+                          String lastName,
+                          Date dateOfBirth,
+                          Gender gender) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;

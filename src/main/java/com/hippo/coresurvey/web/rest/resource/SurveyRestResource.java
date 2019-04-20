@@ -33,13 +33,12 @@ public class SurveyRestResource {
   public SurveyRestResource() {
   }
 
-  public SurveyRestResource(
-      String id,
-      @Email String ownerEmail,
-      @NotBlank String title,
-      String description,
-      Instant timestamp,
-      @NotEmpty @Valid List<QuestionRestResource> questions) {
+  public SurveyRestResource(String id,
+                            @Email String ownerEmail,
+                            @NotBlank String title,
+                            String description,
+                            Instant timestamp,
+                            @NotEmpty @Valid List<QuestionRestResource> questions) {
     this.id = id;
     this.ownerEmail = ownerEmail;
     this.title = title;

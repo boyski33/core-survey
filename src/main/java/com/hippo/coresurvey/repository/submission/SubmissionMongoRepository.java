@@ -40,6 +40,11 @@ public class SubmissionMongoRepository implements SubmissionRepository {
   }
 
   @Override
+  public Long getCountOfSubmissionsByExistingUsers(String surveyId) {
+    return submissionStore.countAllBySurveyIdAndUserExists(surveyId);
+  }
+
+  @Override
   public List<Submission> getSubmissionsOfUser(String userEmail) {
     return submissionStore.findByUserEmail(userEmail).stream()
         .map(SubmissionMongoEntity::toDomainObject)

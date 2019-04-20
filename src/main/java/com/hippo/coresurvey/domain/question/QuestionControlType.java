@@ -8,16 +8,22 @@ import java.util.Map;
 
 public enum QuestionControlType {
   TEXTBOX,
+  TEXTAREA,
   DROPDOWN,
   RADIO,
+  YESNO,
+  RANGE,
   CHECKBOX;
 
   private static Map<String, QuestionControlType> namesMap = new HashMap<>();
 
   static {
     namesMap.put("textbox", TEXTBOX);
+    namesMap.put("textarea", TEXTAREA);
     namesMap.put("dropdown", DROPDOWN);
     namesMap.put("radio", RADIO);
+    namesMap.put("yesno", YESNO);
+    namesMap.put("range", RANGE);
     namesMap.put("checkbox", CHECKBOX);
   }
 

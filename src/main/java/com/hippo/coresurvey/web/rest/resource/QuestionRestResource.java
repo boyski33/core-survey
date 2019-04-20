@@ -26,12 +26,11 @@ public class QuestionRestResource {
   public QuestionRestResource() {
   }
 
-  public QuestionRestResource(
-      @NotBlank String key,
-      @NotBlank String label,
-      int order,
-      @NotNull QuestionControlType controlType,
-      List<QuestionOption> options) {
+  public QuestionRestResource(@NotBlank String key,
+                              @NotBlank String label,
+                              int order,
+                              @NotNull QuestionControlType controlType,
+                              List<QuestionOption> options) {
     this.key = key;
     this.label = label;
     this.order = order;

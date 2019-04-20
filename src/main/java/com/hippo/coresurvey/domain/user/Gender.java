@@ -8,15 +8,13 @@ import java.util.Map;
 
 public enum Gender {
   MALE,
-  FEMALE,
-  OTHER;
+  FEMALE;
 
   private static Map<String, Gender> genderMap = new HashMap<>();
 
   static {
     genderMap.put("male", MALE);
     genderMap.put("female", FEMALE);
-    genderMap.put("other", OTHER);
   }
 
   @JsonCreator

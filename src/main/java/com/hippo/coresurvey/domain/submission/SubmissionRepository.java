@@ -11,6 +11,8 @@ public interface SubmissionRepository {
 
   List<Submission> getSubmissionsForSurvey(String surveyId);
 
+  Long getCountOfSubmissionsByExistingUsers(String surveyId);
+
   List<Submission> getSubmissionsOfUser(String userEmail);
 
   List<Submission> getSubmissionsForSurveyAndUser(String surveyId, String userEmail);

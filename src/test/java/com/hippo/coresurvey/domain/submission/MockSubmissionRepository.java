@@ -10,6 +10,11 @@ public class MockSubmissionRepository implements SubmissionRepository {
   }
 
   @Override
+  public Long getCountOfSubmissionsByExistingUsers(String surveyId) {
+    return 1L;
+  }
+
+  @Override
   public Optional<Submission> getSubmissionById(String id) {
     return Optional.empty();
   }

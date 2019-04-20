@@ -35,12 +35,11 @@ public class SubmissionMongoEntity {
   public SubmissionMongoEntity() {
   }
 
-  public SubmissionMongoEntity(
-      String id,
-      Instant timestamp,
-      UserMongoEntity user,
-      SurveyMongoEntity survey,
-      List<AnsweredQuestion> answers) {
+  public SubmissionMongoEntity(String id,
+                               Instant timestamp,
+                               UserMongoEntity user,
+                               SurveyMongoEntity survey,
+                               List<AnsweredQuestion> answers) {
     this.id = id;
     this.timestamp = nowIfNull(timestamp);
     this.user = user;
