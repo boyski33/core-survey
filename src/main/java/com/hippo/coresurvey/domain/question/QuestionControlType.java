@@ -13,7 +13,8 @@ public enum QuestionControlType {
   RADIO,
   YESNO,
   RANGE,
-  CHECKBOX;
+  CHECKBOX,
+  DATE;
 
   private static Map<String, QuestionControlType> namesMap = new HashMap<>();
 
@@ -25,6 +26,7 @@ public enum QuestionControlType {
     namesMap.put("yesno", YESNO);
     namesMap.put("range", RANGE);
     namesMap.put("checkbox", CHECKBOX);
+    namesMap.put("date", DATE);
   }
 
   @JsonCreator
