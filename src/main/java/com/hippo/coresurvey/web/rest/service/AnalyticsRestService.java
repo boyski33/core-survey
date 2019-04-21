@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -35,9 +37,14 @@ public class AnalyticsRestService implements AnalyticsService {
       return;
     }
 
-    String url = String.format("http://%s:%s/", instance.getHost(), instance.getPort());
-    String result = restTemplate.getForObject(url, String.class);
+    String url = String.format("http://%s:%s/train", instance.getHost(), instance.getPort());
+    ResponseEntity result = restTemplate.postForEntity(url, analyticsData, String.class);
 
-    System.out.println(result);
+    // retry once if error
+    if (result.getStatusCode().isError()) {
+      result = restTemplate.postForEntity(url, analyticsData, String.class);
+    }
+
+    System.out.println(result.getStatusCode());
   }
 }
