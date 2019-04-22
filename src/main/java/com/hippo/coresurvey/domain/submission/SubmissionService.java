@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @PropertySource("classpath:application.yml")
@@ -45,11 +45,24 @@ public class SubmissionService {
   }
 
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
-    return submissionRepository.getSubmissionsForSurvey(surveyId);
+    List<Submission> allSubmissions = submissionRepository.getSubmissionsForSurvey(surveyId);
+    List<Submission> userSubmissions = getSubmissionsWithUser(allSubmissions);
+
+    userSubmissions.addAll(analyzeAnonymousSubmissions(allSubmissions));
+
+    return userSubmissions;
   }
 
-  public List<Submission> getAnalyzedSubmissionsForSurvey(String surveyId) {
-    return Collections.emptyList();
+  private List<Submission> getSubmissionsWithUser(List<Submission> submissions) {
+    return submissions.stream().filter(sub -> sub.getUser() != null).collect(Collectors.toList());
+  }
+
+  private List<Submission> analyzeAnonymousSubmissions(List<Submission> submissions) {
+    List<Submission> anonymousSubmissions = submissions.stream()
+        .filter(sub -> sub.getUser() == null)
+        .collect(Collectors.toList());
+
+    return analyticsService.predictUserDetailsForSubmissions(anonymousSubmissions);
   }
 
   public List<Submission> getSubmissionsOfUser(String userEmail) {
@@ -89,7 +102,7 @@ public class SubmissionService {
 
     if (isTimeToTrain(count)) {
       List<Submission> submissions = submissionRepository.getSubmissionsForSurvey(surveyId);
-      analyticsService.sendAnalyticsData(SurveyAnalyticsData.fromSubmissionList(submissions));
+      analyticsService.trainOnAnalyticsData(SurveyAnalyticsData.fromSubmissionList(submissions));
     }
   }
 

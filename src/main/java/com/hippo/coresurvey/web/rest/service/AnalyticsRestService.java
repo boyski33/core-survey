@@ -33,7 +33,7 @@ public class AnalyticsRestService implements AnalyticsService {
   }
 
   @Override
-  public void sendAnalyticsData(SurveyAnalyticsData analyticsData) {
+  public void trainOnAnalyticsData(SurveyAnalyticsData analyticsData) {
     ServiceInstance instance = client.choose(analyticsServiceId);
 
     if (instance == null) {
@@ -41,14 +41,14 @@ public class AnalyticsRestService implements AnalyticsService {
     }
 
     String url = String.format("http://%s:%s/train", instance.getHost(), instance.getPort());
-    ResponseEntity result = restTemplate.postForEntity(url, analyticsData, String.class);
+    ResponseEntity response = restTemplate.postForEntity(url, analyticsData, String.class);
 
     // retry once if error
-    if (result.getStatusCode().isError()) {
-      result = restTemplate.postForEntity(url, analyticsData, String.class);
+    if (response.getStatusCode().isError()) {
+      response = restTemplate.postForEntity(url, analyticsData, String.class);
     }
 
-    System.out.println(result.getStatusCode());
+    System.out.println(response.getStatusCode());
   }
 
   @Override
@@ -59,8 +59,26 @@ public class AnalyticsRestService implements AnalyticsService {
       return Collections.emptyList();
     }
 
+    AnalyticsSubmissionsResource resource = new AnalyticsSubmissionsResource(submissions);
 
+    String url = String.format("http://%s:%s/predict", instance.getHost(), instance.getPort());
+    ResponseEntity<AnalyticsSubmissionsResource> response =
+        restTemplate.postForEntity(url, resource, AnalyticsSubmissionsResource.class);
 
-    return null;
+    if (response.getStatusCode().isError()) {
+      return Collections.emptyList();
+    } else {
+      return response.getBody().submissions;
+    }
   }
 }
+//
+//  HttpEntity<List<Submission>> submissionsBody = new HttpEntity<>(submissions);
+//
+//  String url = String.format("http://%s:%s/predict", instance.getHost(), instance.getPort());
+//  ResponseEntity<List<Submission>> response = restTemplate.exchange(
+//      url,
+//      HttpMethod.POST,
+//      submissionsBody,
+//      new ParameterizedTypeReference<List<Submission>>() {}
+//  );
