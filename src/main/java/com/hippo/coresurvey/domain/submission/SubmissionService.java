@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,10 @@ public class SubmissionService {
 
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
     return submissionRepository.getSubmissionsForSurvey(surveyId);
+  }
+
+  public List<Submission> getAnalyzedSubmissionsForSurvey(String surveyId) {
+    return Collections.emptyList();
   }
 
   public List<Submission> getSubmissionsOfUser(String userEmail) {

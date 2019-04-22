@@ -1,8 +1,13 @@
 package com.hippo.coresurvey.domain.survey;
 
 import com.hippo.coresurvey.domain.submission.MockSubmissionRepository;
+import com.hippo.coresurvey.domain.submission.SubmissionService;
+import com.hippo.coresurvey.web.rest.controller.SurveyController;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +18,17 @@ import static org.junit.Assert.assertTrue;
 
 public class SurveyServiceTest {
 
+
+  @Mock
+  private SubmissionService submissionService;
+
+  @InjectMocks
   private SurveyService surveyService;
 
   @Before
   public void setup() {
-    this.surveyService = new SurveyService(new MockSurveyRepository(), new MockSubmissionRepository());
+    MockitoAnnotations.initMocks(this);
+    this.surveyService = new SurveyService(new MockSurveyRepository(), submissionService);
   }
 
   @Test

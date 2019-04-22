@@ -36,6 +36,8 @@ public class UserMongoEntity {
   @NotNull
   private Gender gender;
 
+  private Boolean isPredicted;
+
   public UserMongoEntity() {
   }
 
@@ -44,21 +46,23 @@ public class UserMongoEntity {
                          String firstName,
                          String lastName,
                          @NotNull Date dateOfBirth,
-                         @NotNull Gender gender) {
+                         @NotNull Gender gender,
+                         Boolean isPredicted) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
     this.gender = gender;
+    this.isPredicted = isPredicted;
   }
 
   public UserMongoEntity(UserMongoEntity other) {
-    this(other.id, other.email, other.firstName, other.lastName, other.dateOfBirth, other.gender);
+    this(other.id, other.email, other.firstName, other.lastName, other.dateOfBirth, other.gender, other.isPredicted);
   }
 
   public User toDomainObject() {
-    return new User(id, email, firstName, lastName, dateOfBirth, gender);
+    return new User(id, email, firstName, lastName, dateOfBirth, gender, isPredicted);
   }
 
   public static UserMongoEntity fromDomainObject(User user) {
@@ -72,7 +76,8 @@ public class UserMongoEntity {
         user.getFirstName(),
         user.getLastName(),
         user.getDateOfBirth(),
-        user.getGender()
+        user.getGender(),
+        user.getIsPredicted()
     );
   }
 

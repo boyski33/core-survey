@@ -5,7 +5,7 @@ import com.hippo.coresurvey.domain.question.Question;
 import com.hippo.coresurvey.domain.stats.QuestionStats;
 import com.hippo.coresurvey.domain.stats.SurveyReport;
 import com.hippo.coresurvey.domain.submission.Submission;
-import com.hippo.coresurvey.domain.submission.SubmissionRepository;
+import com.hippo.coresurvey.domain.submission.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class SurveyService {
 
   private final SurveyRepository surveyRepository;
-  private final SubmissionRepository submissionRepository;
+  private final SubmissionService submissionService;
 
   @Autowired
-  public SurveyService(SurveyRepository surveyRepository, SubmissionRepository submissionRepository) {
+  public SurveyService(SurveyRepository surveyRepository, SubmissionService submissionService) {
     this.surveyRepository = surveyRepository;
-    this.submissionRepository = submissionRepository;
+    this.submissionService = submissionService;
   }
 
   public List<Survey> getAllSurveys(boolean displayOnlyMeta) {
@@ -42,7 +42,7 @@ public class SurveyService {
 
   public List<Survey> getSurveysForUser(String userEmail) {
     final List<Survey> allSurveysMeta = this.getAllSurveys(true);
-    final List<String> surveysTakenByUser = submissionRepository.getSubmissionsOfUser(userEmail).stream()
+    final List<String> surveysTakenByUser = submissionService.getSubmissionsOfUser(userEmail).stream()
         .map(submission -> submission.getSurvey().getId())
         .collect(Collectors.toList());
 
@@ -56,7 +56,7 @@ public class SurveyService {
   }
 
   public SurveyReport getReportForSurvey(String surveyId) {
-    List<Submission> submissions = submissionRepository.getSubmissionsForSurvey(surveyId);
+    List<Submission> submissions = submissionService.getSubmissionsForSurvey(surveyId);
     List<QuestionStats> surveyStats = submissions.isEmpty() ?
         Collections.emptyList() : extractSurveyStatsFromSubmissions(submissions);
 

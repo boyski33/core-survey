@@ -10,21 +10,29 @@ public class User {
   private String lastName;
   private Date dateOfBirth;
   private Gender gender;
+  private Boolean isPredicted;
 
   public User() {
   }
 
-  public User(String id, String email, String firstName, String lastName, Date dateOfBirth, Gender gender) {
+  public User(String id,
+              String email,
+              String firstName,
+              String lastName,
+              Date dateOfBirth,
+              Gender gender,
+              Boolean isPredicted) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
     this.gender = gender;
+    this.isPredicted = isPredicted;
   }
 
   public User(User other) {
-    this(other.id, other.email, other.firstName, other.lastName, other.dateOfBirth, other.gender);
+    this(other.id, other.email, other.firstName, other.lastName, other.dateOfBirth, other.gender, other.isPredicted);
   }
 
   public String getId() {
@@ -53,5 +61,9 @@ public class User {
 
   public Gender getGender() {
     return gender;
+  }
+
+  public Boolean getIsPredicted() {
+    return isPredicted;
   }
 }

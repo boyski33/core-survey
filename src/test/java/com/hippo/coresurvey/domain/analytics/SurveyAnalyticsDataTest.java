@@ -46,9 +46,9 @@ public class SurveyAnalyticsDataTest {
 
   private List<Submission> getSubmissionStubs() {
     final User user =
-        new User("id1", "mail@mail.bg", "John", "Smith", dob, Gender.MALE);
+        new User("id1", "mail@mail.bg", "John", "Smith", dob, Gender.MALE, false);
     final User user2 =
-        new User("id2", "mail@mail.bg", "Maria", "Smith", dob, Gender.FEMALE);
+        new User("id2", "mail@mail.bg", "Maria", "Smith", dob, Gender.FEMALE, false);
 
     List<Submission> submissions = new ArrayList<>();
     Survey survey = new Survey("id1", "", "", "", Instant.MIN, Collections.emptyList());
