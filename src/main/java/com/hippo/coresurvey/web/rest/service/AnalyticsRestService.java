@@ -55,13 +55,15 @@ public class AnalyticsRestService implements AnalyticsService {
   public List<Submission> predictUserDetailsForSubmissions(List<Submission> submissions) {
     ServiceInstance instance = client.choose(analyticsServiceId);
 
-    if (instance == null) {
+    if (instance == null || submissions.isEmpty()) {
       return Collections.emptyList();
     }
 
     AnalyticsSubmissionsResource resource = new AnalyticsSubmissionsResource(submissions);
 
-    String url = String.format("http://%s:%s/predict", instance.getHost(), instance.getPort());
+    String surveyId = submissions.get(0).getSurvey().getId();
+
+    String url = String.format("http://%s:%s/predict/%s", instance.getHost(), instance.getPort(), surveyId);
     ResponseEntity<AnalyticsSubmissionsResource> response =
         restTemplate.postForEntity(url, resource, AnalyticsSubmissionsResource.class);
 

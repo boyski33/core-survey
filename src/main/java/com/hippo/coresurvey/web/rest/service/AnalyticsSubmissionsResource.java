@@ -5,7 +5,6 @@ import com.hippo.coresurvey.domain.submission.Submission;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hippo.coresurvey.domain.util.CollectionsUtil.ofNullableList;
 
 public class AnalyticsSubmissionsResource {
   public ArrayList<Submission> submissions;
