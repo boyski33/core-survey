@@ -15,7 +15,6 @@ public class Survey {
   private String title;
   private String description;
   private Instant timestamp;
-
   private List<Question> questions;
 
   public Survey() {

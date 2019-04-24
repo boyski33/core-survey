@@ -64,6 +64,6 @@ public class User {
   }
 
   public Boolean getIsPredicted() {
-    return isPredicted;
+    return isPredicted != null && isPredicted;
   }
 }

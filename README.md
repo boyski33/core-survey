@@ -5,6 +5,10 @@ Hippo Survey platform microservice for handling creation and retrieval of survey
 
 ## Release Notes
 
+### Version 0.5.0
+* Train models per survey
+* Predict age and gender from submissions
+
 ### Version 0.4.0
 * Use Ribbon to communicate with Analytics service
 * Configure training threshold

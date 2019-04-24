@@ -3,6 +3,7 @@ package com.hippo.coresurvey.web.rest.service;
 import com.hippo.coresurvey.domain.analytics.AnalyticsService;
 import com.hippo.coresurvey.domain.analytics.SurveyAnalyticsData;
 import com.hippo.coresurvey.domain.submission.Submission;
+import com.hippo.coresurvey.web.rest.resource.SubmissionRestResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -12,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @PropertySource("classpath:application.yml")
@@ -56,7 +57,7 @@ public class AnalyticsRestService implements AnalyticsService {
     ServiceInstance instance = client.choose(analyticsServiceId);
 
     if (instance == null || submissions.isEmpty()) {
-      return Collections.emptyList();
+      return submissions;
     }
 
     AnalyticsSubmissionsResource resource = new AnalyticsSubmissionsResource(submissions);
@@ -67,20 +68,12 @@ public class AnalyticsRestService implements AnalyticsService {
     ResponseEntity<AnalyticsSubmissionsResource> response =
         restTemplate.postForEntity(url, resource, AnalyticsSubmissionsResource.class);
 
-    if (response.getStatusCode().isError()) {
-      return Collections.emptyList();
+    if (response.getStatusCode().isError() || response.getBody() == null) {
+      return submissions;
     } else {
-      return response.getBody().submissions;
+      return response.getBody().submissions.stream()
+          .map(SubmissionRestResource::toDomainObject)
+          .collect(Collectors.toList());
     }
   }
 }
-//
-//  HttpEntity<List<Submission>> submissionsBody = new HttpEntity<>(submissions);
-//
-//  String url = String.format("http://%s:%s/predict", instance.getHost(), instance.getPort());
-//  ResponseEntity<List<Submission>> response = restTemplate.exchange(
-//      url,
-//      HttpMethod.POST,
-//      submissionsBody,
-//      new ParameterizedTypeReference<List<Submission>>() {}
-//  );

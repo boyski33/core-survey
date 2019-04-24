@@ -46,20 +46,22 @@ public class SubmissionService {
 
   public List<Submission> getSubmissionsForSurvey(String surveyId) {
     List<Submission> allSubmissions = submissionRepository.getSubmissionsForSurvey(surveyId);
-    List<Submission> userSubmissions = getSubmissionsWithUser(allSubmissions);
 
+    List<Submission> userSubmissions = getSubmissionsWithUser(allSubmissions);
     userSubmissions.addAll(analyzeAnonymousSubmissions(allSubmissions));
 
     return userSubmissions;
   }
 
   private List<Submission> getSubmissionsWithUser(List<Submission> submissions) {
-    return submissions.stream().filter(sub -> sub.getUser() != null).collect(Collectors.toList());
+    return submissions.stream()
+        .filter(sub -> sub.getUser() != null && !sub.getUser().getIsPredicted())
+        .collect(Collectors.toList());
   }
 
   private List<Submission> analyzeAnonymousSubmissions(List<Submission> submissions) {
     List<Submission> anonymousSubmissions = submissions.stream()
-        .filter(sub -> sub.getUser() == null)
+        .filter(sub -> sub.getUser() == null || sub.getUser().getIsPredicted())
         .collect(Collectors.toList());
 
     return analyticsService.predictUserDetailsForSubmissions(anonymousSubmissions);
