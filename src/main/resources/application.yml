@@ -22,5 +22,5 @@ auth0:
   apiAudience: http://localhost:8866
 
 analytics:
-  train-threshold: 15
-  retrain-factor: 5
+  train-threshold: 2
+  retrain-factor: 1

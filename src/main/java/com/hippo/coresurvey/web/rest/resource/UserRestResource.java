@@ -1,5 +1,6 @@
 package com.hippo.coresurvey.web.rest.resource;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hippo.coresurvey.domain.user.Gender;
 import com.hippo.coresurvey.domain.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,6 +31,9 @@ public class UserRestResource {
   @NotNull
   public Gender gender;
 
+  @JsonProperty("is_predicted")
+  public Boolean isPredicted;
+
   public UserRestResource() {
   }
 
@@ -38,17 +42,19 @@ public class UserRestResource {
                           String firstName,
                           String lastName,
                           Date dateOfBirth,
-                          Gender gender) {
+                          Gender gender,
+                          Boolean isPredicted) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
     this.gender = gender;
+    this.isPredicted = isPredicted;
   }
 
   public User toDomainObject() {
-    return new User(id, email, firstName, lastName, dateOfBirth, gender);
+    return new User(id, email, firstName, lastName, dateOfBirth, gender, isPredicted);
   }
 
   public static UserRestResource fromDomainObject(User user) {
@@ -62,7 +68,8 @@ public class UserRestResource {
         user.getFirstName(),
         user.getLastName(),
         user.getDateOfBirth(),
-        user.getGender()
+        user.getGender(),
+        user.getIsPredicted()
     );
   }
 
