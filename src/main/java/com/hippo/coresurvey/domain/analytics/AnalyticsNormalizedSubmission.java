@@ -9,15 +9,15 @@ public class AnalyticsNormalizedSubmission {
 
   private int userAge;
   private Gender userGender;
-  private List<AnsweredQuestion> answeredQuestions;
+  private List<AnsweredQuestion> answers;
 
   public AnalyticsNormalizedSubmission() {
   }
 
-  public AnalyticsNormalizedSubmission(int userAge, Gender userGender, List<AnsweredQuestion> answeredQuestions) {
+  public AnalyticsNormalizedSubmission(int userAge, Gender userGender, List<AnsweredQuestion> answers) {
     this.userAge = userAge;
     this.userGender = userGender;
-    this.answeredQuestions = answeredQuestions;
+    this.answers = answers;
   }
 
   public int getUserAge() {
@@ -28,7 +28,7 @@ public class AnalyticsNormalizedSubmission {
     return userGender;
   }
 
-  public List<AnsweredQuestion> getAnsweredQuestions() {
-    return answeredQuestions;
+  public List<AnsweredQuestion> getAnswers() {
+    return answers;
   }
 }
