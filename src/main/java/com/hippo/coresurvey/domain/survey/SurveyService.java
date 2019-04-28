@@ -52,6 +52,8 @@ public class SurveyService {
   }
 
   public Survey addSurvey(Survey survey) {
+    // todo validate
+
     return surveyRepository.addSurvey(survey);
   }
 
