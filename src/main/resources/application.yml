@@ -3,7 +3,7 @@ server:
 eureka:
   instance:
     prefer-ip-address: true
-    hostname: ${DOMAIN_NAME}
+    hostname: ${DOMAIN_NAME:localhost}
     non-secure-port: 80
 
   client:
