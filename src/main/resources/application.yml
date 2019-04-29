@@ -1,13 +1,14 @@
 server:
-  port: 8866
+  port: ${PORT:8866}
 eureka:
   instance:
     prefer-ip-address: true
+
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://${eureka-host:localhost}:8761/eureka/
+      defaultZone: ${EUREKA:http://localhost:8761/eureka/}
 spring:
   data:
     mongodb:
@@ -19,7 +20,7 @@ service:
 
 auth0:
   issuer: https://hippo-survey.eu.auth0.com/
-  apiAudience: http://localhost:8866
+  apiAudience: http://localhost:${server.port}
 
 analytics:
   train-threshold: 2

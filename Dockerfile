@@ -1,8 +1,6 @@
 FROM openjdk:8-jdk-alpine
 LABEL project="Hippo Survey"
 
-ENV eureka-host="eureka"
-
 WORKDIR /app
 COPY build.gradle /app/
 COPY ./gradle /app/gradle
