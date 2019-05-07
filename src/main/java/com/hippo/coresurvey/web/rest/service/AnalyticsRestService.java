@@ -6,8 +6,6 @@ import com.hippo.coresurvey.domain.submission.Submission;
 import com.hippo.coresurvey.web.rest.resource.SubmissionRestResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,26 +20,21 @@ public class AnalyticsRestService implements AnalyticsService {
 
   private final RestTemplate restTemplate;
 
-  private final LoadBalancerClient client;
+  @Value("${service.user-analytics.host}")
+  private String analyticsHost;
 
-  @Value("${service.user-analytics.serviceId}")
-  private String analyticsServiceId;
+  @Value("${service.user-analytics.port}")
+  private Integer analyticsPort;
 
   @Autowired
-  public AnalyticsRestService(RestTemplate restTemplate, LoadBalancerClient client) {
+  public AnalyticsRestService(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
-    this.client = client;
   }
 
   @Override
   public void trainOnAnalyticsData(SurveyAnalyticsData analyticsData) {
-    ServiceInstance instance = client.choose(analyticsServiceId);
 
-    if (instance == null) {
-      return;
-    }
-
-    String url = String.format("http://%s:%s/train", instance.getHost(), instance.getPort());
+    String url = String.format("http://%s:%s/train", analyticsHost, analyticsPort);
     ResponseEntity response = restTemplate.postForEntity(url, analyticsData, String.class);
 
     // retry once if error
@@ -54,9 +47,8 @@ public class AnalyticsRestService implements AnalyticsService {
 
   @Override
   public List<Submission> predictUserDetailsForSubmissions(List<Submission> submissions) {
-    ServiceInstance instance = client.choose(analyticsServiceId);
 
-    if (instance == null || submissions.isEmpty()) {
+    if (submissions.isEmpty()) {
       return submissions;
     }
 
@@ -64,7 +56,7 @@ public class AnalyticsRestService implements AnalyticsService {
 
     String surveyId = submissions.get(0).getSurvey().getId();
 
-    String url = String.format("http://%s:%s/predict/%s", instance.getHost(), instance.getPort(), surveyId);
+    String url = String.format("http://%s:%s/predict/%s", analyticsHost, analyticsPort, surveyId);
     ResponseEntity<AnalyticsSubmissionsResource> response =
         restTemplate.postForEntity(url, resource, AnalyticsSubmissionsResource.class);
 
