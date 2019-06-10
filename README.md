@@ -1,5 +1,12 @@
 [![Build Status](https://travis-ci.com/boyski33/core-survey.svg?branch=master)](https://travis-ci.com/boyski33/core-survey)
 
+#### TODO
+* migrate to PostgreSQL
+* refactor REST API
+* utilize a stream or msg broker for communication with user-analytics
+* add Spring profiles
+* think about adding a checkbox answer
+
 ### Core Survey microservice
 Hippo Survey platform microservice for handling creation and retrieval of surveys
 
