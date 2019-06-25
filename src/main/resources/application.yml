@@ -13,7 +13,7 @@ service:
 
 auth0:
   issuer: https://hippo-survey.eu.auth0.com/
-  apiAudience: http://localhost:${server.port}
+  apiAudience: https://hippo-survey-core.herokuapp.com/
 
 analytics:
   train-threshold: 2
