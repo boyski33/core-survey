@@ -22,7 +22,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     JwtWebSecurityConfigurer.forRS256(apiAudience, issuer)
         .configure(http)
-        .authorizeRequests();
+        .authorizeRequests()
+        .anyRequest()
+        .permitAll();
   }
 
 }
