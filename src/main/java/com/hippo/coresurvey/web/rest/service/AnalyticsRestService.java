@@ -60,12 +60,12 @@ public class AnalyticsRestService implements AnalyticsService {
     ResponseEntity<AnalyticsSubmissionsResource> response =
         restTemplate.postForEntity(url, resource, AnalyticsSubmissionsResource.class);
 
-    if (response.getStatusCode().isError() || response.getBody() == null) {
+//    if (response.getStatusCode().isError() || response.getBody() == null) {
       return submissions;
-    } else {
-      return response.getBody().submissions.stream()
-          .map(SubmissionRestResource::toDomainObject)
-          .collect(Collectors.toList());
-    }
+//    } else {
+//      return response.getBody().submissions.stream()
+//          .map(SubmissionRestResource::toDomainObject)
+//          .collect(Collectors.toList());
+//    }
   }
 }
