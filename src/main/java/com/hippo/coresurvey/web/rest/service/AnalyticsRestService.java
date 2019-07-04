@@ -1,5 +1,7 @@
 package com.hippo.coresurvey.web.rest.service;
 
+import static com.hippo.coresurvey.CoreSurveyApplication.logger;
+
 import com.hippo.coresurvey.domain.analytics.AnalyticsService;
 import com.hippo.coresurvey.domain.analytics.SurveyAnalyticsData;
 import com.hippo.coresurvey.domain.submission.Submission;
@@ -34,13 +36,17 @@ public class AnalyticsRestService implements AnalyticsService {
   @Override
   public void trainOnAnalyticsData(SurveyAnalyticsData analyticsData) {
 
-    String url = String.format("http://%s:%s/train", analyticsHost, analyticsPort);
+    logger.info(String.format("Making a request to %s/%s", analyticsHost, "/train"));
+
+    String url = String.format("%s:%s/train", analyticsHost, analyticsPort);
     ResponseEntity response = restTemplate.postForEntity(url, analyticsData, String.class);
 
     // retry once if error
     if (response.getStatusCode().isError()) {
       response = restTemplate.postForEntity(url, analyticsData, String.class);
     }
+
+    logger.info(String.format("Response from %s: %s", analyticsHost, response.toString()));
 
     System.out.println(response.getStatusCode());
   }
@@ -56,9 +62,13 @@ public class AnalyticsRestService implements AnalyticsService {
 
     String surveyId = submissions.get(0).getSurvey().getId();
 
-    String url = String.format("http://%s:%s/predict/%s", analyticsHost, analyticsPort, surveyId);
+    logger.info(String.format("Making a request to %s/%s", analyticsHost, "/predict"));
+
+    String url = String.format("%s:%s/predict/%s", analyticsHost, analyticsPort, surveyId);
     ResponseEntity<AnalyticsSubmissionsResource> response =
         restTemplate.postForEntity(url, resource, AnalyticsSubmissionsResource.class);
+
+    logger.info(String.format("Response from %s: %s", analyticsHost, response.toString()));
 
     if (response.getStatusCode().isError() || response.getBody() == null) {
       return submissions;
